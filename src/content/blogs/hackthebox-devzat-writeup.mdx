@@ -6,8 +6,8 @@ date: 2021-10-21
 image: hackthebox-devzat-writeup.webp
 ---
 
-import FixTheImageURL from '../../components/mdxComponents/FixTheImageURL.astro';
-import { components as MDXComponents } from '../../components/mdxComponents';
+import FixTheImageURL from "../../components/mdxComponents/FixTheImageURL.astro";
+import { components as MDXComponents } from "../../components/mdxComponents";
 export const components = MDXComponents;
 
 ## Nmap
@@ -66,11 +66,11 @@ ff02::2 ip6-allrouters
 
 It's a `simple` web page with some `description`. i think it's talking about `chat` app.
 
-<FixTheImageURL src='web.png' slug='hackthebox-devzat-writeup' />
+<FixTheImageURL src="web.png" slug="hackthebox-devzat-writeup" />
 
 After `scrolling` down i find a way to `interact` with chat app.
 
-<FixTheImageURL src='web1.png' slug='hackthebox-devzat-writeup' />
+<FixTheImageURL src="web1.png" slug="hackthebox-devzat-writeup" />
 
 Now we are `connect` with the chat app i try `/help` that give me `/commands` to execute.
 
@@ -194,11 +194,11 @@ ff02::2 ip6-allrouters
 
 When i go to `pets.devzat.htb` i see that it's a pet `inventory` were we add our `pets` name.
 
-<FixTheImageURL src='web2.png' slug='hackthebox-devzat-writeup' />
+<FixTheImageURL src="web2.png" slug="hackthebox-devzat-writeup" />
 
 I try to add `special` character in pet name and when i `submit` that the server said `exit-status-1`
 
-<FixTheImageURL src='web3.png' slug='hackthebox-devzat-writeup' />
+<FixTheImageURL src="web3.png" slug="hackthebox-devzat-writeup" />
 
 I try many `special` character but server always said `exit-status-1`. after that i run wfuzz and found a `interesting` directory called `.git`
 
@@ -239,19 +239,19 @@ Link : https://github.com/arthaud/git-dumper
 
 I think it's a `source` code of `pets` application.
 
-<FixTheImageURL src='cmd.png' slug='hackthebox-devzat-writeup' />
+<FixTheImageURL src="cmd.png" slug="hackthebox-devzat-writeup" />
 
 When i analyze the code of `main.go` file i found a `venerable` function that directly `execute` the species name without any `filter`. we can use that to get `rev` shell.
 
-<FixTheImageURL src='cmd1.png' slug='hackthebox-devzat-writeup' />
+<FixTheImageURL src="cmd1.png" slug="hackthebox-devzat-writeup" />
 
 First let's `capture` the request in `burp`.
 
-<FixTheImageURL src='web4.png' slug='hackthebox-devzat-writeup' />
+<FixTheImageURL src="web4.png" slug="hackthebox-devzat-writeup" />
 
 So the req is `working` fine.
 
-<FixTheImageURL src='burp.png' slug='hackthebox-devzat-writeup' />
+<FixTheImageURL src="burp.png" slug="hackthebox-devzat-writeup" />
 
 Let's try with `simple` command first with `ping` ourself for that let's setup the `tcpdump`.
 
@@ -271,11 +271,11 @@ listening on tun0, link-type RAW (Raw IP), snapshot length 262144 bytes
 
 Let's send the `req` and check the `tcpdump`.
 
-<FixTheImageURL src='burp1.png' slug='hackthebox-devzat-writeup' />
+<FixTheImageURL src="burp1.png" slug="hackthebox-devzat-writeup" />
 
 And we got the `req` let's get the `rev shell` quickly.
 
-<FixTheImageURL src='cmd2.png' slug='hackthebox-devzat-writeup' />
+<FixTheImageURL src="cmd2.png" slug="hackthebox-devzat-writeup" />
 
 Change the `ip` and you `good` to go.
 
@@ -296,11 +296,11 @@ Before `sending` the req start your `netcat` listner.
 
 After `sending` the req we didn't get the `responce` back let's check the `netcat` listner.
 
-<FixTheImageURL src='burp2.png' slug='hackthebox-devzat-writeup' />
+<FixTheImageURL src="burp2.png" slug="hackthebox-devzat-writeup" />
 
 And we got the `shell`.
 
-<FixTheImageURL src='cmd3.png' slug='hackthebox-devzat-writeup' />
+<FixTheImageURL src="cmd3.png" slug="hackthebox-devzat-writeup" />
 
 And we got the `id_rsa` of user `patrick`.
 
@@ -396,11 +396,11 @@ Now let's run `LinPEAS`.
 
 And we see a `service` running on port `8086`.
 
-<FixTheImageURL src='cmd4.png' slug='hackthebox-devzat-writeup' />
+<FixTheImageURL src="cmd4.png" slug="hackthebox-devzat-writeup" />
 
 let's transfer `chisel` in machine for `port-forwarding` so we can enumerate that `port`.
 
-<FixTheImageURL src='cmd5.png' slug='hackthebox-devzat-writeup' />
+<FixTheImageURL src="cmd5.png" slug="hackthebox-devzat-writeup" />
 
 ## Local Machine
 
@@ -421,11 +421,11 @@ patrick@devzat:/tmp$ ./chisel client 10.10.14.116:8080 R:8086:127.0.0.1:8086
 2021/10/19 04:47:36 client: Connected (Latency 82.996449ms)
 ```
 
-<FixTheImageURL src='cmd6.png' slug='hackthebox-devzat-writeup' />
+<FixTheImageURL src="cmd6.png" slug="hackthebox-devzat-writeup" />
 
 After accessing that port on `browser` it's said `404 page not found` and we see it's using `php` with `laravel` framework.
 
-<FixTheImageURL src='web5.png' slug='hackthebox-devzat-writeup' />
+<FixTheImageURL src="web5.png" slug="hackthebox-devzat-writeup" />
 
 After that i run `nmap` to check what `service` it's running.
 
@@ -644,11 +644,11 @@ Let's run `LinPEAS` again.
 
 And we got two `backup` files **devzat-main** & **devzat-dev**.
 
-<FixTheImageURL src='cmd7.png' slug='hackthebox-devzat-writeup' />
+<FixTheImageURL src="cmd7.png" slug="hackthebox-devzat-writeup" />
 
 python3 is installed inside that `box` so let's use that to `transfer` both files in our `local` machine.
 
-<FixTheImageURL src='cmd8.png' slug='hackthebox-devzat-writeup' />
+<FixTheImageURL src="cmd8.png" slug="hackthebox-devzat-writeup" />
 
 Now let's `unzip` both files.
 
@@ -751,17 +751,17 @@ Link : https://text-compare.com/
 
 First `change` we see it's import the `path/filepath`.
 
-<FixTheImageURL src='web6.png' slug='hackthebox-devzat-writeup' />
+<FixTheImageURL src="web6.png" slug="hackthebox-devzat-writeup" />
 
 Second we see it's `add` a new command called `/file` and for using that command we need `password` which is hard-coded inside the `program` and we also see that if `path` not found it's `print the current path` were the program running.
 
 password = `CeilingCatStillAThingIn2021?`
 
-<FixTheImageURL src='web7.png' slug='hackthebox-devzat-writeup' />
+<FixTheImageURL src="web7.png" slug="hackthebox-devzat-writeup" />
 
 And inside `devchat.go` file we see it's running on port `8443`.
 
-<FixTheImageURL src='cmd9.png' slug='hackthebox-devzat-writeup' />
+<FixTheImageURL src="cmd9.png" slug="hackthebox-devzat-writeup" />
 
 Now let's `connect` to the port with any `user`.
 

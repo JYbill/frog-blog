@@ -6,8 +6,8 @@ date: 2022-03-02
 image: hackthebox-routerspace-writeup.webp
 ---
 
-import FixTheImageURL from '../../components/mdxComponents/FixTheImageURL.astro';
-import { components as MDXComponents } from '../../components/mdxComponents';
+import FixTheImageURL from "../../components/mdxComponents/FixTheImageURL.astro";
+import { components as MDXComponents } from "../../components/mdxComponents";
 export const components = MDXComponents;
 
 ## Nmap
@@ -130,7 +130,7 @@ It's a simple `static` page.
 
 Only `download` button is working that's give us an `routerspace.apk`.
 
-<FixTheImageURL src='web.png' slug='hackthebox-routerspace-writeup' />
+<FixTheImageURL src="web.png" slug="hackthebox-routerspace-writeup" />
 
 Download that `RouterSpace.apk`.
 
@@ -153,13 +153,13 @@ Install the `RouterSpace.apk` in `anbox`.
 └──╼ [★]$ adb install RouterSpace.apk
 ```
 
-<FixTheImageURL src='cmd.png' slug='hackthebox-routerspace-writeup' />
+<FixTheImageURL src="cmd.png" slug="hackthebox-routerspace-writeup" />
 
 Running the application click on `Check Status` it's said router is `working fine`.
 
 Let's `intercept` this in `burp`.
 
-<FixTheImageURL src='cmd1.png' slug='hackthebox-routerspace-writeup' />
+<FixTheImageURL src="cmd1.png" slug="hackthebox-routerspace-writeup" />
 
 but for that i `need` to first set the `proxy`.
 
@@ -170,13 +170,13 @@ but for that i `need` to first set the `proxy`.
 
 Now `configure` the `burp` to `intercept` the traffic of `tun0` ip.
 
-<FixTheImageURL src='burp.png' slug='hackthebox-routerspace-writeup' />
+<FixTheImageURL src="burp.png" slug="hackthebox-routerspace-writeup" />
 
 Now `everything` is set let's `click` on `Check Status`
 
 `Captured` the `req`.
 
-<FixTheImageURL src='burp1.png' slug='hackthebox-routerspace-writeup' />
+<FixTheImageURL src="burp1.png" slug="hackthebox-routerspace-writeup" />
 
 Let's send it to `repeater` tab.
 
@@ -184,7 +184,7 @@ Let's send it to `repeater` tab.
 
 But it's going on `routerspace.htb`.
 
-<FixTheImageURL src='burp2.png' slug='hackthebox-routerspace-writeup' />
+<FixTheImageURL src="burp2.png" slug="hackthebox-routerspace-writeup" />
 
 Let's add this in `/etc/hosts` file.
 
@@ -205,13 +205,13 @@ ff02::2 ip6-allrouters
 
 Now send the `req`.
 
-<FixTheImageURL src='burp3.png' slug='hackthebox-routerspace-writeup' />
+<FixTheImageURL src="burp3.png" slug="hackthebox-routerspace-writeup" />
 
 Let's try `command injection` with `id`.
 
 But it's `reflected` the same `string`.
 
-<FixTheImageURL src='burp4.png' slug='hackthebox-routerspace-writeup' />
+<FixTheImageURL src="burp4.png" slug="hackthebox-routerspace-writeup" />
 
 ## RCE
 
@@ -234,13 +234,13 @@ Accept-Encoding: gzip, deflate
 
 And it's `work`🔥.
 
-<FixTheImageURL src='burp5.png' slug='hackthebox-routerspace-writeup' />
+<FixTheImageURL src="burp5.png" slug="hackthebox-routerspace-writeup" />
 
 Now i try different method to get `rev shell` but non of them working because of `ip tables` rules.
 
 Let's `check` if there is any `id_rsa key` in paul `.ssh` directory.
 
-<FixTheImageURL src='burp6.png' slug='hackthebox-routerspace-writeup' />
+<FixTheImageURL src="burp6.png" slug="hackthebox-routerspace-writeup" />
 
 Nothing there so i decided to add my `public id_rsa` key inside paul `.ssh` directory.
 
@@ -298,11 +298,11 @@ Accept-Encoding: gzip, deflate
 
 Using `double greater then sign(>>)` because i don't want to `overwrite` someone `ssh key` so this `simply append` the file `content`.
 
-<FixTheImageURL src='burp7.png' slug='hackthebox-routerspace-writeup' />
+<FixTheImageURL src="burp7.png" slug="hackthebox-routerspace-writeup" />
 
 Checking the file is `exist` there or not and `It is`.
 
-<FixTheImageURL src='burp8.png' slug='hackthebox-routerspace-writeup' />
+<FixTheImageURL src="burp8.png" slug="hackthebox-routerspace-writeup" />
 
 Now let's get the `ssh` connection
 
@@ -378,7 +378,7 @@ paul@routerspace:~$ ./linpeas.sh | tee linPEAS_output
 
 And we see `sudo` is `vulnerable`.
 
-<FixTheImageURL src='cmd2.png' slug='hackthebox-routerspace-writeup' />
+<FixTheImageURL src="cmd2.png" slug="hackthebox-routerspace-writeup" />
 
 ## CVE-2021-3156
 

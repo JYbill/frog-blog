@@ -6,8 +6,8 @@ date: 2021-06-25
 image: hackthebox-static-writeup.webp
 ---
 
-import FixTheImageURL from '../../components/mdxComponents/FixTheImageURL.astro';
-import { components as MDXComponents } from '../../components/mdxComponents';
+import FixTheImageURL from "../../components/mdxComponents/FixTheImageURL.astro";
+import { components as MDXComponents } from "../../components/mdxComponents";
 export const components = MDXComponents;
 
 ## Nmap
@@ -47,7 +47,7 @@ There are three ports open `22:ssh,2222:ssh(Strange) 8080:http`
 
 Blank Page `Strange`.
 
-<FixTheImageURL src='web.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="web.png" slug="hackthebox-static-writeup" />
 
 Now let's use `gobuster`.
 
@@ -75,23 +75,23 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
 
 Found `robots.txt` let's check it out what directories `disallow` there.
 
-<FixTheImageURL src='web1.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="web1.png" slug="hackthebox-static-writeup" />
 
 ## **/vpn/**
 
 There is a `login` page and we don't have `creads` for that.
 
-<FixTheImageURL src='web2.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="web2.png" slug="hackthebox-static-writeup" />
 
 ## **/.ftp_uploads/**
 
 Two files first is `db.sql.gz` and second is `warning.txt`
 
-<FixTheImageURL src='web3.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="web3.png" slug="hackthebox-static-writeup" />
 
 Warning tell us about the `db.sql.gz` file that been `corrupted` while transfer!!
 
-<FixTheImageURL src='web4.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="web4.png" slug="hackthebox-static-writeup" />
 
 After some `google` i found a tool for `fix` the corrupted `gz` files.
 
@@ -179,7 +179,7 @@ INSERT INTO users ( id, username, password, totp ) VALUES ( null, 'admin', 'd033
 
 Found `username(admin)` and `hash(d033e22ae348aeb5660fc2140aec35850c4da997)` and a `totp(orxxi4c7orxwwzlo)`
 
-<FixTheImageURL src='cmd.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="cmd.png" slug="hackthebox-static-writeup" />
 
 Now let's try to `crack` the **hash(d033e22ae348aeb5660fc2140aec35850c4da997)**.
 
@@ -214,43 +214,43 @@ Session completed
 
 Got the **username(admin)** & **password(admin)** let's try to login in inside `/vpn/login.php`
 
-<FixTheImageURL src='web5.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="web5.png" slug="hackthebox-static-writeup" />
 
 Admin account has `2FA` enabled.
 
-<FixTheImageURL src='web6.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="web6.png" slug="hackthebox-static-writeup" />
 
 But the good news is we have the `secret` **totp(orxxi4c7orxwwzlo)**
 
-<FixTheImageURL src='web7.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="web7.png" slug="hackthebox-static-writeup" />
 
 Link : https://addons.mozilla.org/en-US/firefox/addon/auth-helper/
 
 Let's use this `extension` and get the `OTP`.
 
-<FixTheImageURL src='web8.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="web8.png" slug="hackthebox-static-writeup" />
 
 Copy the `OPT` and send it.
 
-<FixTheImageURL src='web9.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="web9.png" slug="hackthebox-static-writeup" />
 
 Now we are inside `Support` Portal
 
-<FixTheImageURL src='web10.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="web10.png" slug="hackthebox-static-writeup" />
 
 Let's type `web` and get the `web.ovpn` file.
 
-<FixTheImageURL src='web11.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="web11.png" slug="hackthebox-static-writeup" />
 
 Now let's connect with `web.ovpn` file.
 
 But it's giving us `error` let's check the `file`.
 
-<FixTheImageURL src='cmd1.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="cmd1.png" slug="hackthebox-static-writeup" />
 
 We see that it's want `vpn.static.htb`
 
-<FixTheImageURL src='cmd2.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="cmd2.png" slug="hackthebox-static-writeup" />
 
 let's add this inside `/etc/hosts`.
 
@@ -333,15 +333,15 @@ ff02::2 ip6-allrouters
 
 Now let's go to this `web` ip.
 
-<FixTheImageURL src='web12.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="web12.png" slug="hackthebox-static-writeup" />
 
 But it's `loading` and we can't see the `web` page.
 
-<FixTheImageURL src='web13.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="web13.png" slug="hackthebox-static-writeup" />
 
 We see in the `image` that we have two `interface` first tun0 second `tun9` but in tun9 we have the ip `172.30.0.9` and the web page we want to access that's ip is `172.20.0.10`
 
-<FixTheImageURL src='cmd3.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="cmd3.png" slug="hackthebox-static-writeup" />
 
 So we want to add the `route` for access the `web` page in `tun9` interface.
 
@@ -356,15 +356,15 @@ And now we can `access` the web page.
 
 Let's go to `info.php`
 
-<FixTheImageURL src='web14.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="web14.png" slug="hackthebox-static-writeup" />
 
 And we have the `phpinfo` page.
 
-<FixTheImageURL src='web15.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="web15.png" slug="hackthebox-static-writeup" />
 
 Found the `xdebug` let's check the `exploit` for that.
 
-<FixTheImageURL src='web16.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="web16.png" slug="hackthebox-static-writeup" />
 
 Got the `metasploit` module let's try to `exploit` with that.
 
@@ -416,7 +416,7 @@ Now let's run the `exploit`.
 
 Boom💥 we got the `shell`.
 
-<FixTheImageURL src='cmd4.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="cmd4.png" slug="hackthebox-static-writeup" />
 
 ```js
 msf6 exploit(unix/http/xdebug_unauth_exec) > options
@@ -596,7 +596,7 @@ www-data@web:/home$
 
 If you see on the `Support` Portal we have another network of `ip(192.168.254.3)`.
 
-<FixTheImageURL src='web17.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="web17.png" slug="hackthebox-static-writeup" />
 
 And if we see `inside` our ssh Connection we are in the same network on `eth1` interface.
 
@@ -649,11 +649,11 @@ Now let's go to `localhost` or `127.0.0.1` and we got the page.
 
 There is `nothing` on the website just saying `batch mode: /usr/bin/ersatool...`
 
-<FixTheImageURL src='web18.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="web18.png" slug="hackthebox-static-writeup" />
 
 And if we `check` the header we see `PHP-FPM/7.1` is running let's check the `exploit` for that.
 
-<FixTheImageURL src='web19.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="web19.png" slug="hackthebox-static-writeup" />
 
 Link : https://medium.com/@knownsec404team/php-fpm-remote-code-execution-vulnerability-cve-2019-11043-analysis-35fd605dd2dc
 
@@ -738,7 +738,7 @@ dedsec.py                                                                       
 
 Now open `2` ssh `Connections` and start `netcat` listner on `9001` in one of the `ssh` connection.
 
-<FixTheImageURL src='cmd5.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="cmd5.png" slug="hackthebox-static-writeup" />
 
 After start the `netcat` listner run the `exploit.py`
 
@@ -746,7 +746,7 @@ After start the `netcat` listner run the `exploit.py`
 python3 exploit.py --url http://192.168.254.3/index.php
 ```
 
-<FixTheImageURL src='cmd6.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="cmd6.png" slug="hackthebox-static-writeup" />
 
 After running the `exploit` you got the url. we don't need to open that `url` because we create a `script` for that so they open that and add the `python3` exploit and we got the `rev` shell.
 
@@ -756,11 +756,11 @@ We just need to run the `dedsec.py` for 2-3 times and we got the `shell`.
 python3 dedsec.py
 ```
 
-<FixTheImageURL src='cmd7.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="cmd7.png" slug="hackthebox-static-writeup" />
 
 Now if you `remember` we see a file called `ersatool` on web page. Let's `check` that file.
 
-<FixTheImageURL src='web20.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="web20.png" slug="hackthebox-static-writeup" />
 
 After `checking` that file i known that it's a `binary` which running as `root`.
 
@@ -791,7 +791,7 @@ www-data@pki:/usr/bin$ find / -name ersatool.* 2>/dev/null
 
 source code of `ersatool` binary.
 
-<FixTheImageURL src='cmd8.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="cmd8.png" slug="hackthebox-static-writeup" />
 
 ## ersatool.c
 
@@ -1123,7 +1123,7 @@ cd /tmp
 python3 -m http.server 1337
 ```
 
-<FixTheImageURL src='cmd9.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="cmd9.png" slug="hackthebox-static-writeup" />
 
 ## Step 4
 
@@ -1165,7 +1165,7 @@ drwxr-xr-x 1 root     root        4096 Jun 25 01:26 ..
 www-data@pki:/tmp/www$
 ```
 
-<FixTheImageURL src='cmd10.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="cmd10.png" slug="hackthebox-static-writeup" />
 
 Now after `transferring` pspy run that on first `rev` shell.
 
@@ -1188,9 +1188,9 @@ exit
 
 And i `capture` all calls of the `binary` and i found that `openssl` was call without giving the `full` path.
 
-<FixTheImageURL src='cmd11.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="cmd11.png" slug="hackthebox-static-writeup" />
 
-<FixTheImageURL src='cmd12.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="cmd12.png" slug="hackthebox-static-writeup" />
 
 ```js
 www-data@pki:/tmp/www$ chmod +x pspy
@@ -1303,11 +1303,11 @@ www-data@pki:/tmp/pwn$
 
 Now just run the `ersatool` binary and check the `/bin/bash` binary as shown in the image.
 
-<FixTheImageURL src='cmd13.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="cmd13.png" slug="hackthebox-static-writeup" />
 
 And we see that `/bin/bash` binary permission has been changed to `suid` bit set.
 
-<FixTheImageURL src='cmd14.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="cmd14.png" slug="hackthebox-static-writeup" />
 
 Now just execute the `/bin/bash` -p and get the `root.txt` file.
 
@@ -1322,4 +1322,4 @@ bash-4.4# cat root.txt
 0f5d512bf6ddb951699b1c05b6bb2cb1
 ```
 
-<FixTheImageURL src='cmd15.png' slug='hackthebox-static-writeup' />
+<FixTheImageURL src="cmd15.png" slug="hackthebox-static-writeup" />

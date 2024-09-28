@@ -6,8 +6,8 @@ date: 2021-08-31
 image: hackthebox-horizontall-writeup.webp
 ---
 
-import FixTheImageURL from '../../components/mdxComponents/FixTheImageURL.astro';
-import { components as MDXComponents } from '../../components/mdxComponents';
+import FixTheImageURL from "../../components/mdxComponents/FixTheImageURL.astro";
+import { components as MDXComponents } from "../../components/mdxComponents";
 export const components = MDXComponents;
 
 ## Nmap
@@ -40,7 +40,7 @@ There are two ports open `22:ssh,80:http`
 
 When we go to the `ip` it will redirected to horizontall.htb
 
-<FixTheImageURL src='web.png' slug='hackthebox-horizontall-writeup' />
+<FixTheImageURL src="web.png" slug="hackthebox-horizontall-writeup" />
 
 Let's quickly add that in out `/etc/hosts` file.
 
@@ -63,17 +63,17 @@ Now let's check what's `running` on the port `80`.
 
 It's a `simple` web page.
 
-<FixTheImageURL src='web1.png' slug='hackthebox-horizontall-writeup' />
+<FixTheImageURL src="web1.png" slug="hackthebox-horizontall-writeup" />
 
 There is a `contact` form let's try to `submit` that.
 
 But i don't `think` so they will send my `req` anywhere.
 
-<FixTheImageURL src='web2.png' slug='hackthebox-horizontall-writeup' />
+<FixTheImageURL src="web2.png" slug="hackthebox-horizontall-writeup" />
 
 I use `gobuster` to find some interesting `directories` but there is nothing `interesting`.
 
-<FixTheImageURL src='cmd.png' slug='hackthebox-horizontall-writeup' />
+<FixTheImageURL src="cmd.png" slug="hackthebox-horizontall-writeup" />
 
 Now the `last` thing is to find `subdomain` i use `gobuster` for that you can use **ffuf** or **wfuzz** for that.
 
@@ -81,7 +81,7 @@ Now the `last` thing is to find `subdomain` i use `gobuster` for that you 
 gobuster vhost -u http://horizontall.htb/ -w /usr/share/SecLists/Discovery/DNS/subdomains-top1million-110000.txt -t 100
 ```
 
-<FixTheImageURL src='cmd1.png' slug='hackthebox-horizontall-writeup' />
+<FixTheImageURL src="cmd1.png" slug="hackthebox-horizontall-writeup" />
 
 And we found a new `subdomain` called `api-prod.horizontall.htb` let's quickly add this in our `/etc/hosts` file.
 
@@ -102,7 +102,7 @@ ff02::2 ip6-allrouters
 
 Now when we go to the `web` page it's said welcome and nothing `interesting` in the page so let's try to find `interesting` directories with `gobuster`.
 
-<FixTheImageURL src='web3.png' slug='hackthebox-horizontall-writeup' />
+<FixTheImageURL src="web3.png" slug="hackthebox-horizontall-writeup" />
 
 And we find the `interesting` directory called `/admin`.
 
@@ -111,11 +111,11 @@ And we find the `interesting` directory called `/admin`.
 └──╼ [★]$ gobuster dir -u http://api-prod.horizontall.htb/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -t 80
 ```
 
-<FixTheImageURL src='cmd2.png' slug='hackthebox-horizontall-writeup' />
+<FixTheImageURL src="cmd2.png" slug="hackthebox-horizontall-writeup" />
 
 And we got `strapi` login page. let's check the `exploit` for that.
 
-<FixTheImageURL src='web4.png' slug='hackthebox-horizontall-writeup' />
+<FixTheImageURL src="web4.png" slug="hackthebox-horizontall-writeup" />
 
 Link : https://thatsn0tmysite.wordpress.com/2019/11/15/x05/
 
@@ -135,19 +135,19 @@ It's `works` now let's try to change the `password` of user but we don't kno
 
 In the `admin` login page we find a `forgot` password. let's check if we use this `functionality` to enumerate users.
 
-<FixTheImageURL src='web5.png' slug='hackthebox-horizontall-writeup' />
+<FixTheImageURL src="web5.png" slug="hackthebox-horizontall-writeup" />
 
 And we see we can `enumerate` usernames.
 
-<FixTheImageURL src='web6.png' slug='hackthebox-horizontall-writeup' />
+<FixTheImageURL src="web6.png" slug="hackthebox-horizontall-writeup" />
 
 Let's check the `admin` user because in every `login` page admin is always first `user`.
 
-<FixTheImageURL src='burp.png' slug='hackthebox-horizontall-writeup' />
+<FixTheImageURL src="burp.png" slug="hackthebox-horizontall-writeup" />
 
 And we see when we use `admin` the page taking long to `responce` back.
 
-<FixTheImageURL src='burp1.png' slug='hackthebox-horizontall-writeup' />
+<FixTheImageURL src="burp1.png" slug="hackthebox-horizontall-writeup" />
 
 So let's try to `reset` the password of `admin` with that `python` script in the `article`.
 
@@ -201,15 +201,15 @@ Usage: change_admin_password.py &lt;admin_email> &lt;url> &lt;new_password>
 b'{"jwt":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjMwMjIzMTI1LCJleHAiOjE2MzI4MTUxMjV9.BJLJs3IcjWgL-7n2H1_GikE_QND7-9U28owQq0eayOY","user":{"id":3,"username":"admin","email":"admin@horizontall.htb","blocked":null}}'
 ```
 
-<FixTheImageURL src='cmd3.png' slug='hackthebox-horizontall-writeup' />
+<FixTheImageURL src="cmd3.png" slug="hackthebox-horizontall-writeup" />
 
 Now let's try to login with `admin`.
 
-<FixTheImageURL src='web7.png' slug='hackthebox-horizontall-writeup' />
+<FixTheImageURL src="web7.png" slug="hackthebox-horizontall-writeup" />
 
 And we are inside the `admin` panel.
 
-<FixTheImageURL src='web8.png' slug='hackthebox-horizontall-writeup' />
+<FixTheImageURL src="web8.png" slug="hackthebox-horizontall-writeup" />
 
 When i find the `exploit` for strapi login page i also find one more `interesting` article that teach us how to get `rce` but the problem is we need `jwt` token for that but now we are `login` we have the jwt token now let's `try` that now.
 
@@ -219,7 +219,7 @@ Let me tell you where you get the `jwt` token.
 
 Just `refresh` the page and capture the `req` in burp and you got the `jwt` token.
 
-<FixTheImageURL src='burp2.png' slug='hackthebox-horizontall-writeup' />
+<FixTheImageURL src="burp2.png" slug="hackthebox-horizontall-writeup" />
 
 Now we have `everything` ready let's try that to get `rev` shell.
 
@@ -240,47 +240,47 @@ nc -nvlp 9001
 
 Now let's run the `command` and capture the `req` in the burp.
 
-<FixTheImageURL src='cmd4.png' slug='hackthebox-horizontall-writeup' />
+<FixTheImageURL src="cmd4.png" slug="hackthebox-horizontall-writeup" />
 
 And we see in the `burp` we need to fix that `json`.
 
 ### From This:
 
-<FixTheImageURL src='burp3.png' slug='hackthebox-horizontall-writeup' />
+<FixTheImageURL src="burp3.png" slug="hackthebox-horizontall-writeup" />
 
 ### To This:
 
 And then send the `req` and check the `netcat` listner.
 
-<FixTheImageURL src='burp4.png' slug='hackthebox-horizontall-writeup' />
+<FixTheImageURL src="burp4.png" slug="hackthebox-horizontall-writeup" />
 
 And we get the `shell`.
 
-<FixTheImageURL src='cmd5.png' slug='hackthebox-horizontall-writeup' />
+<FixTheImageURL src="cmd5.png" slug="hackthebox-horizontall-writeup" />
 
 First let's `stabilized` the shell.
 
-<FixTheImageURL src='cmd6.png' slug='hackthebox-horizontall-writeup' />
+<FixTheImageURL src="cmd6.png" slug="hackthebox-horizontall-writeup" />
 
 And we get the `user.txt`
 
-<FixTheImageURL src='cmd7.png' slug='hackthebox-horizontall-writeup' />
+<FixTheImageURL src="cmd7.png" slug="hackthebox-horizontall-writeup" />
 
 ## Privilege escalation
 
 Let's start with `LinPEAS`.
 
-<FixTheImageURL src='cmd8.png' slug='hackthebox-horizontall-writeup' />
+<FixTheImageURL src="cmd8.png" slug="hackthebox-horizontall-writeup" />
 
 After `analyzing` the output i found interesting port `8000` which run locally in the system.
 
-<FixTheImageURL src='cmd9.png' slug='hackthebox-horizontall-writeup' />
+<FixTheImageURL src="cmd9.png" slug="hackthebox-horizontall-writeup" />
 
 I use `chisel` for portforward `8000` port so we can `access` that in our browser.
 
 First let's transfer the `chisel` binary.
 
-<FixTheImageURL src='cmd10.png' slug='hackthebox-horizontall-writeup' />
+<FixTheImageURL src="cmd10.png" slug="hackthebox-horizontall-writeup" />
 
 Now Let's `portforward` the 8000 port.
 
@@ -289,21 +289,21 @@ Now Let's `portforward` the 8000 port.
 ./chisel client 10.10.14.59:8001 R:8000:127.0.0.1:8000     # on target machiene
 ```
 
-<FixTheImageURL src='cmd11.png' slug='hackthebox-horizontall-writeup' />
+<FixTheImageURL src="cmd11.png" slug="hackthebox-horizontall-writeup" />
 
 Now let's `check` what service is running on `port` 8000.
 
 And we see it's running `laravel php framework`.
 
-<FixTheImageURL src='web9.png' slug='hackthebox-horizontall-writeup' />
+<FixTheImageURL src="web9.png" slug="hackthebox-horizontall-writeup" />
 
 Let's `check` the view page `source` and we get the `laravel` version.
 
-<FixTheImageURL src='web10.png' slug='hackthebox-horizontall-writeup' />
+<FixTheImageURL src="web10.png" slug="hackthebox-horizontall-writeup" />
 
 Let's search the `exploit` for this specific `version` of laravel.
 
-<FixTheImageURL src='web11.png' slug='hackthebox-horizontall-writeup' />
+<FixTheImageURL src="web11.png" slug="hackthebox-horizontall-writeup" />
 
 After some `google` search i found some `reading` materials and `exploit` for that.
 
@@ -424,7 +424,7 @@ uid=0(root) gid=0(root) groups=0(root)
 [+] Logs cleared
 ```
 
-<FixTheImageURL src='cmd12.png' slug='hackthebox-horizontall-writeup' />
+<FixTheImageURL src="cmd12.png" slug="hackthebox-horizontall-writeup" />
 
 And the output is `root` so let's try our old `trick` to get `root` shell you guys known that😉
 
@@ -443,7 +443,7 @@ done
 [+] Logs cleared
 ```
 
-<FixTheImageURL src='cmd13.png' slug='hackthebox-horizontall-writeup' />
+<FixTheImageURL src="cmd13.png" slug="hackthebox-horizontall-writeup" />
 
 Now go to your `previous` shell of strapi user and `execute` the suit bit set `binary(/bin/bash)` and get the `root.txt`
 
@@ -458,7 +458,7 @@ bash-4.4# cat root.txt
 d81660812e51818997acccae1f11ef9b
 ```
 
-<FixTheImageURL src='cmd14.png' slug='hackthebox-horizontall-writeup' />
+<FixTheImageURL src="cmd14.png" slug="hackthebox-horizontall-writeup" />
 
 ## Second Method Through Ssh
 
@@ -527,7 +527,7 @@ strapi@horizontall:~/.ssh$ echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC9gSPz8b9
 strapi@horizontall:~/.ssh$
 ```
 
-<FixTheImageURL src='cmd15.png' slug='hackthebox-horizontall-writeup' />
+<FixTheImageURL src="cmd15.png" slug="hackthebox-horizontall-writeup" />
 
 Now you can `forward` the port `8000` with help of `ssh`.
 

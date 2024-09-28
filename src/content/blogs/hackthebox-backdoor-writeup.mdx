@@ -6,8 +6,8 @@ date: 2021-11-26
 image: hackthebox-backdoor-writeup.webp
 ---
 
-import FixTheImageURL from '../../components/mdxComponents/FixTheImageURL.astro';
-import { components as MDXComponents } from '../../components/mdxComponents';
+import FixTheImageURL from "../../components/mdxComponents/FixTheImageURL.astro";
+import { components as MDXComponents } from "../../components/mdxComponents";
 export const components = MDXComponents;
 
 ## Nmap
@@ -70,33 +70,33 @@ Nothing `interesting` found in 1337 port
 
 It's a `simple` WordPress page.
 
-<FixTheImageURL src='web.png' slug='hackthebox-backdoor-writeup' />
+<FixTheImageURL src="web.png" slug="hackthebox-backdoor-writeup" />
 
 We can `conform` that with footer
 
-<FixTheImageURL src='web1.png' slug='hackthebox-backdoor-writeup' />
+<FixTheImageURL src="web1.png" slug="hackthebox-backdoor-writeup" />
 
 In `WordPress` website i first try to check if `directory` listing is enable or not.
 
 And we see when we go `wp-includes` we see all `files` in the server.
 
-<FixTheImageURL src='web2.png' slug='hackthebox-backdoor-writeup' />
+<FixTheImageURL src="web2.png" slug="hackthebox-backdoor-writeup" />
 
 Let's check if we list out the `plugins` directory. Go to `wp-content/plugins/`
 
-<FixTheImageURL src='web3.png' slug='hackthebox-backdoor-writeup' />
+<FixTheImageURL src="web3.png" slug="hackthebox-backdoor-writeup" />
 
 We got the `ebook-download` plugin let's check the `readme.txt` inside that directory to check the `current` version of that `plugin`.
 
-<FixTheImageURL src='web4.png' slug='hackthebox-backdoor-writeup' />
+<FixTheImageURL src="web4.png" slug="hackthebox-backdoor-writeup" />
 
 We got the version `1.1` let's check the `exploit` for that `specific` version.
 
-<FixTheImageURL src='web5.png' slug='hackthebox-backdoor-writeup' />
+<FixTheImageURL src="web5.png" slug="hackthebox-backdoor-writeup" />
 
 And we got the `exploit` for that `specific` version.
 
-<FixTheImageURL src='web6.png' slug='hackthebox-backdoor-writeup' />
+<FixTheImageURL src="web6.png" slug="hackthebox-backdoor-writeup" />
 
 Link : https://www.exploit-db.com/exploits/39575
 
@@ -225,20 +225,20 @@ And it's work we got the `database` username and `password`.
 
 ```js
 /** MySQL database username */
-define('DB_USER', 'wordpressuser');
+define("DB_USER", "wordpressuser");
 /** MySQL database password */
-define('DB_PASSWORD', 'MQYBJSaD#DxG6qbm');
+define("DB_PASSWORD", "MQYBJSaD#DxG6qbm");
 /** MySQL hostname */
-define('DB_HOST', 'localhost');
+define("DB_HOST", "localhost");
 ```
 
 Let's try this `creads` to login inside `wordpress` admin panel.
 
-<FixTheImageURL src='web7.png' slug='hackthebox-backdoor-writeup' />
+<FixTheImageURL src="web7.png" slug="hackthebox-backdoor-writeup" />
 
 But it's `not working`.
 
-<FixTheImageURL src='web8.png' slug='hackthebox-backdoor-writeup' />
+<FixTheImageURL src="web8.png" slug="hackthebox-backdoor-writeup" />
 
 Let's try to get `/etc/passwd` file to check the users exist.
 
@@ -325,7 +325,7 @@ Link : https://www.netspi.com/blog/technical/web-application-penetration-testing
 
 We can check these file inside `proc/[pid]/` folder.
 
-<FixTheImageURL src='web9.png' slug='hackthebox-backdoor-writeup' />
+<FixTheImageURL src="web9.png" slug="hackthebox-backdoor-writeup" />
 
 I use `cmdline` to check the command running on that `process`.
 
@@ -422,13 +422,13 @@ After configuring the `msfconsole` let's run that.
 
 And we got the shell as `user` and get the `user.txt`.
 
-<FixTheImageURL src='cmd.png' slug='hackthebox-backdoor-writeup' />
+<FixTheImageURL src="cmd.png" slug="hackthebox-backdoor-writeup" />
 
 ## Privilege escalation
 
 Now let's run `linPEAS`.
 
-<FixTheImageURL src='cmd1.png' slug='hackthebox-backdoor-writeup' />
+<FixTheImageURL src="cmd1.png" slug="hackthebox-backdoor-writeup" />
 
 It's running `GNU Screen` as root we can switch our `screen` to `root` let's try that out.
 
@@ -436,11 +436,11 @@ It's running `GNU Screen` as root we can switch our `screen` to `root` let
 screen -x root/root
 ```
 
-<FixTheImageURL src='cmd2.png' slug='hackthebox-backdoor-writeup' />
+<FixTheImageURL src="cmd2.png" slug="hackthebox-backdoor-writeup" />
 
 Now we are `root` user let's get the `root.txt` file.
 
-<FixTheImageURL src='cmd3.png' slug='hackthebox-backdoor-writeup' />
+<FixTheImageURL src="cmd3.png" slug="hackthebox-backdoor-writeup" />
 
 ## Second Method For Privilege escalation
 

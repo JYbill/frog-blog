@@ -6,8 +6,8 @@ date: 2022-11-27
 image: hackthebox-precious-writeup.webp
 ---
 
-import FixTheImageURL from '../../components/mdxComponents/FixTheImageURL.astro';
-import { components as MDXComponents } from '../../components/mdxComponents';
+import FixTheImageURL from "../../components/mdxComponents/FixTheImageURL.astro";
+import { components as MDXComponents } from "../../components/mdxComponents";
 export const components = MDXComponents;
 
 ## Nmap
@@ -53,7 +53,7 @@ ff02::2 ip6-allrouters
 
 There is a simple `web page convertor` which take the `URL` as input and give the `PDF` as output
 
-<FixTheImageURL src='web.png' slug='hackthebox-precious-writeup' />
+<FixTheImageURL src="web.png" slug="hackthebox-precious-writeup" />
 
 Let's `quickly` spin up the `python3` web server
 
@@ -63,25 +63,25 @@ Let's `quickly` spin up the `python3` web server
 
 Input the `IP` of our `attacker` machine
 
-<FixTheImageURL src='web1.png' slug='hackthebox-precious-writeup' />
+<FixTheImageURL src="web1.png" slug="hackthebox-precious-writeup" />
 
 And it's `converted` the webpage into `PDF` as expected, let's download the PDF
 
-<FixTheImageURL src='web2.png' slug='hackthebox-precious-writeup' />
+<FixTheImageURL src="web2.png" slug="hackthebox-precious-writeup" />
 
 Analyzing the PDF, we're going to known that it's using `pdfkit v0.8.6`.
 
-<FixTheImageURL src='cmd.png' slug='hackthebox-precious-writeup' />
+<FixTheImageURL src="cmd.png" slug="hackthebox-precious-writeup" />
 
 ## CVE-2022-25765
 
 Searching that on `Google` I find a command `injection vulnerability`
 
-<FixTheImageURL src='web3.png' slug='hackthebox-precious-writeup' />
+<FixTheImageURL src="web3.png" slug="hackthebox-precious-writeup" />
 
 Link : https://security.snyk.io/vuln/SNYK-RUBY-PDFKIT-2869795
 
-<Tweet id='1578667943852118017' />
+<Tweet id="1578667943852118017" />
 
 After reading the `POC` I got to known that we can use any get `parameter` name and inside that use the `backticks` to injection our command.
 
@@ -91,11 +91,11 @@ http://10.10.XX.XX/?name=%20`id`
 
 Let's `input` that and check any changes in the `output`
 
-<FixTheImageURL src='web4.png' slug='hackthebox-precious-writeup' />
+<FixTheImageURL src="web4.png" slug="hackthebox-precious-writeup" />
 
 And as per the command `id` we got the `user info`
 
-<FixTheImageURL src='web5.png' slug='hackthebox-precious-writeup' />
+<FixTheImageURL src="web5.png" slug="hackthebox-precious-writeup" />
 
 Let's use the `python3` payload to get the `rev` shell
 
@@ -162,7 +162,7 @@ BUNDLE_HTTPS://RUBYGEMS__ORG/: "henry:Q3c1AqGHtoI0aXAYFH"
 
 Login with `henry` user.
 
-<FixTheImageURL src='cmd1.png' slug='hackthebox-precious-writeup' />
+<FixTheImageURL src="cmd1.png" slug="hackthebox-precious-writeup" />
 
 ## Privilege Escalation
 
@@ -181,17 +181,14 @@ User henry may run the following commands on precious:
 
 Checking the file, we're going to known that it's using `YAML.load` which is vulnerable to `YAML Deserialization Attack`.
 
-<ConsCard
-    title="Don't use YAML.load()"
-    cons={['YAML.load() was most likely the culprit with this finding.']}
-/>
+<ConsCard title="Don't use YAML.load()" cons={["YAML.load() was most likely the culprit with this finding."]} />
 
 <ProsCard
-    title='Instead use YAML.safe_load()'
-    pros={[
-        'If you are familiar with pickle, you will know that load() is also a highly strong function. Both techniques are extremely unsafe since they let an attacker run the arbitrary code',
-        'safe_load() just contains a portion of the load function, it should be used if you’re processing the ordinary YAML files',
-    ]}
+  title="Instead use YAML.safe_load()"
+  pros={[
+    "If you are familiar with pickle, you will know that load() is also a highly strong function. Both techniques are extremely unsafe since they let an attacker run the arbitrary code",
+    "safe_load() just contains a portion of the load function, it should be used if you’re processing the ordinary YAML files",
+  ]}
 />
 
 ```ruby {11}:update_dependencies.rb

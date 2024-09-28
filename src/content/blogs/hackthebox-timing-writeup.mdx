@@ -6,8 +6,8 @@ date: 2021-12-22
 image: hackthebox-timing-writeup.webp
 ---
 
-import FixTheImageURL from '../../components/mdxComponents/FixTheImageURL.astro';
-import { components as MDXComponents } from '../../components/mdxComponents';
+import FixTheImageURL from "../../components/mdxComponents/FixTheImageURL.astro";
+import { components as MDXComponents } from "../../components/mdxComponents";
 export const components = MDXComponents;
 
 ## Nmap
@@ -47,7 +47,7 @@ It's a `simple` login page.
 
 Trying default `username` password but `nothing` work.
 
-<FixTheImageURL src='web.png' slug='hackthebox-timing-writeup' />
+<FixTheImageURL src="web.png" slug="hackthebox-timing-writeup" />
 
 Let's run `gobuster`.
 
@@ -86,11 +86,11 @@ All pages redirect to `login.php` except `/image` and `image.php`.
 
 Let's first go to `/images`
 
-<FixTheImageURL src='web1.png' slug='hackthebox-timing-writeup' />
+<FixTheImageURL src="web1.png" slug="hackthebox-timing-writeup" />
 
 Forbidden! let's check `image.php`
 
-<FixTheImageURL src='web2.png' slug='hackthebox-timing-writeup' />
+<FixTheImageURL src="web2.png" slug="hackthebox-timing-writeup" />
 
 And we see `image.php` don't give any error or `redirect`. i think this page accept some get or post `parameter` because when we upload any `php` shell through images it's also need `parameter` and if we don't pass any they give us `blank` page like this.
 
@@ -121,7 +121,7 @@ Requests/sec.: 317.3192
 
 Found the `parameter` let's check if it has `LFI` or not.
 
-<FixTheImageURL src='web3.png' slug='hackthebox-timing-writeup' />
+<FixTheImageURL src="web3.png" slug="hackthebox-timing-writeup" />
 
 And it's said `hacking attempt detected!`
 
@@ -131,7 +131,7 @@ Let's use php `base64` filter to check if it's still the same `scenario`.
 http://10.10.11.135/image.php?img=php://filter/convert.base64-decoder/resource=/etc/passwd
 ```
 
-<FixTheImageURL src='web4.png' slug='hackthebox-timing-writeup' />
+<FixTheImageURL src="web4.png" slug="hackthebox-timing-writeup" />
 
 And it's `work!`
 
@@ -360,19 +360,19 @@ It's `checking` that if our session `role id` is equal to 1 or not if not it
 
 But the `question` is what's the username and `password` of login page? after some time i try username `aaron` and password is also aaron and it's `work`.
 
-<FixTheImageURL src='web5.png' slug='hackthebox-timing-writeup' />
+<FixTheImageURL src="web5.png" slug="hackthebox-timing-writeup" />
 
 And it's said `user 2` but we need our role `id = 1` for that we need to `find` a way let's check the edit `profile` tab.
 
-<FixTheImageURL src='web6.png' slug='hackthebox-timing-writeup' />
+<FixTheImageURL src="web6.png" slug="hackthebox-timing-writeup" />
 
 Let's check the source code of `profile.php` with that `LFI`.
 
-<FixTheImageURL src='web7.png' slug='hackthebox-timing-writeup' />
+<FixTheImageURL src="web7.png" slug="hackthebox-timing-writeup" />
 
 it's submit the `form` with help of `js`.
 
-<FixTheImageURL src='cmd.png' slug='hackthebox-timing-writeup' />
+<FixTheImageURL src="cmd.png" slug="hackthebox-timing-writeup" />
 
 It's `sending` the form data to `profile_update.php`.
 
@@ -476,27 +476,27 @@ if (!empty($error)) {
 
 And we see if we specify `role=1` in the profile `update` form. it's set the session `role id=1`.
 
-<FixTheImageURL src='cmd1.png' slug='hackthebox-timing-writeup' />
+<FixTheImageURL src="cmd1.png" slug="hackthebox-timing-writeup" />
 
 Now let's `submit` the form and `intercept` the req in burp.
 
-<FixTheImageURL src='web8.png' slug='hackthebox-timing-writeup' />
+<FixTheImageURL src="web8.png" slug="hackthebox-timing-writeup" />
 
 Add the `&role=1` in last and `send` the req.
 
-<FixTheImageURL src='burp.png' slug='hackthebox-timing-writeup' />
+<FixTheImageURL src="burp.png" slug="hackthebox-timing-writeup" />
 
 Now go to the `home` page or `reload` the page.
 
-<FixTheImageURL src='web9.png' slug='hackthebox-timing-writeup' />
+<FixTheImageURL src="web9.png" slug="hackthebox-timing-writeup" />
 
 And we see a new `link` appear `Admin Panel` let's go to that page.
 
-<FixTheImageURL src='web10.png' slug='hackthebox-timing-writeup' />
+<FixTheImageURL src="web10.png" slug="hackthebox-timing-writeup" />
 
 And we see we can `upload` avatar image now let's check the source code of `upload.php` page.
 
-<FixTheImageURL src='web11.png' slug='hackthebox-timing-writeup' />
+<FixTheImageURL src="web11.png" slug="hackthebox-timing-writeup" />
 
 And we see the process of `uploading` file
 
@@ -508,7 +508,7 @@ And we see the process of `uploading` file
 
 Link : https://www.geeksforgeeks.org/what-is-the-difference-between-single-quoted-and-double-quoted-strings-in-php/#:~:text=Double%2Dquoted%20strings%3A%20By%20using,variables%20directly%20within%20the%20string.&text=Each%20variable%20will%20be%20replaced%20by%20its%20value
 
-<FixTheImageURL src='cmd2.png' slug='hackthebox-timing-writeup' />
+<FixTheImageURL src="cmd2.png" slug="hackthebox-timing-writeup" />
 
 Now to get the `name` of the file i create a `python` script to get that.
 
@@ -540,7 +540,7 @@ Before `uploading` the file start the `python` script first.
 
 Now `upload` the file.
 
-<FixTheImageURL src='web12.png' slug='hackthebox-timing-writeup' />
+<FixTheImageURL src="web12.png" slug="hackthebox-timing-writeup" />
 
 Now check every `single` hash which generated by `python` script and try to send the `req` with that hash with `curl`.
 
@@ -556,7 +556,7 @@ Now check every `single` hash which generated by `python` script and try to 
 uid=33(www-data) gid=33(www-data) groups=33(www-data)
 ```
 
-<FixTheImageURL src='cmd3.png' slug='hackthebox-timing-writeup' />
+<FixTheImageURL src="cmd3.png" slug="hackthebox-timing-writeup" />
 
 And we got the `RCE`
 
@@ -603,7 +603,7 @@ I copy that zip file in `/var/www/html`
 
 Now `download` that zip file.
 
-<FixTheImageURL src='web13.png' slug='hackthebox-timing-writeup' />
+<FixTheImageURL src="web13.png" slug="hackthebox-timing-writeup" />
 
 Let's `unzip` the file.
 
@@ -765,7 +765,7 @@ It is running `netutils.jar` which is inside `root` folder so we can't view 
 
 And we see it's get the `file` and place it on `aaron` home folder with `root` permission.
 
-<FixTheImageURL src='cmd4.png' slug='hackthebox-timing-writeup' />
+<FixTheImageURL src="cmd4.png" slug="hackthebox-timing-writeup" />
 
 So i create a symlink of `/root/.ssh/authorized_keys` with keys so when we get the `file` with same name it's `overwrite` the content of `authorized_keys`.
 
@@ -832,7 +832,7 @@ Serving HTTP on 0.0.0.0 port 80 (http://0.0.0.0:80/) ...
 
 Now enter the `url` and get the file after `getting the file` you see new file is not `created` it means it's overwrite the `authorized_keys`.
 
-<FixTheImageURL src='cmd5.png' slug='hackthebox-timing-writeup' />
+<FixTheImageURL src="cmd5.png" slug="hackthebox-timing-writeup" />
 
 Now let's login with our `id_rsa` and get the `root.txt` file.
 
