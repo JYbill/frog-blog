@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import MainLayout from "../layouts/MainLayout.astro";
 import BlogPostWithSearch from "../components/BlogPostWithSearch";
+import { fade } from "astro:transitions";
 
 const allBlogPosts = await getCollection("blogs");
 const sortedPosts = allBlogPosts.sort((a, b) => Number(new Date(b.data.date)) - Number(new Date(a.data.date)));

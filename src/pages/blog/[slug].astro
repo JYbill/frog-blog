@@ -1,24 +1,31 @@
 ---
+import type { InferGetStaticParamsType, InferGetStaticPropsType, GetStaticPaths } from "astro";
 import { getCollection } from "astro:content";
-import MainLayout from "../../layouts/MainLayout.astro";
+import MainLayout from "@/layouts/MainLayout.astro";
 import { Picture } from "astro:assets";
-import Avatar from "../../assets/images/avatar.png";
 import { format, parseISO } from "date-fns";
 import readingTime from "reading-time";
-import GiscusComment from "../../components/GiscusComment";
-import BlogPostViews from "../../components/BlogPostViews";
+import GiscusComment from "@/components/GiscusComment";
+import BlogPostViews from "@/components/BlogPostViews";
+import { HomeConfig } from "@/config";
 
-export async function getStaticPaths() {
+type Params = InferGetStaticParamsType<typeof getStaticPaths>;
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+export const getStaticPaths = (async () => {
   const blogsEntries = await getCollection("blogs");
-  return blogsEntries.map((blog) => ({
-    params: { slug: blog.slug },
-    props: { blog },
-  }));
-}
+  return blogsEntries.map((blog) => {
+    return {
+      params: { slug: blog.slug },
+      props: { blog },
+    };
+  });
+}) satisfies GetStaticPaths;
 
-const { blog } = Astro.props;
+const { blog } = Astro.props as Props;
 const { Content } = await blog.render();
-console.log("c", Content);
+const date = format(blog.data.date, "yyyy-MM-dd"); // 更新日期
+const readTime = readingTime(blog.body).text; // 阅读时间
 ---
 
 <MainLayout
@@ -27,19 +34,21 @@ console.log("c", Content);
   ogImage={Astro.site + "images/hackthebox/" + blog.data.image}
 >
   <article class="flex flex-col items-start justify-center w-full max-w-2xl mx-auto mb-16">
-    <h1 class="mb-4 text-3xl font-bold tracking-tight text-black md:text-5xl dark:text-white" transition:name="heading">
+    <h1
+      class="mb-4 text-3xl font-bold tracking-tight text-black md:text-5xl dark:text-white"
+      transition:name="heading1"
+    >
       {blog.data.title}
     </h1>
     <div class="flex flex-col items-start justify-between w-full mt-2 md:flex-row md:items-center">
       <div class="flex items-center">
-        <Picture src={Avatar} class="rounded-full h-6 w-6" alt="Dedsec" formats={["avif", "webp"]} />
+        <Picture src={HomeConfig.avatar} class="rounded-full h-6 w-6" alt="Dedsec" formats={["avif", "webp"]} />
         <p class="ml-2 text-sm text-gray-700 dark:text-gray-300">
-          {"Dedsec / "}
-          {format(parseISO(blog.data.date.toISOString()), "MMMM dd, yyyy")}
+          {`${HomeConfig.authorName} / ${date}`}
         </p>
       </div>
       <p class="mt-2 text-sm text-gray-600 dark:text-gray-400 min-w-32 md:mt-0">
-        {readingTime(blog.body).text}
+        {readTime}
         {` • `}
         <BlogPostViews client:only="react" slug={blog.slug} className="views" increment />
       </p>
@@ -50,20 +59,5 @@ console.log("c", Content);
       <Content />
     </div>
     <GiscusComment client:only="react" />
-    <div class="text-sm text-gray-700 dark:text-gray-300">
-      <a
-        href={`https://mobile.twitter.com/search?q=${encodeURIComponent(
-          `https://0xdedinfosec.vercel.app/blog/${blog.slug}`,
-        )}`}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {"Discuss on Twitter"}
-      </a>
-      {` • `}
-      <a href="https://github.com/0xdedinfosec/0xdedinfosec-astro" target="_blank" rel="noopener noreferrer">
-        {"Suggest Change"}
-      </a>
-    </div>
   </article>
 </MainLayout>

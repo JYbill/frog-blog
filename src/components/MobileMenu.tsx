@@ -1,15 +1,17 @@
-import useDelayedRender from "use-delayed-render";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import styles from "../styles/mobile-menu.module.css";
 import { cn } from "../lib/utils";
 import navLinks from "./navLinks.json";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 export default function MobileMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { mounted: isMenuMounted, rendered: isMenuRendered } = useDelayedRender(isMenuOpen, {
-    enterDelay: 20,
-    exitDelay: 300,
-  });
+  useGSAP(() => {
+    if (isMenuOpen) {
+      gsap.fromTo(".box", { left: "-100" }, { left: 0, duration: 0.7, ease: "bounce.out" });
+    }
+  }, [isMenuOpen]);
 
   function toggleMenu() {
     if (isMenuOpen) {
@@ -38,13 +40,9 @@ export default function MobileMenu() {
         <MenuIcon data-hide={isMenuOpen} />
         <CrossIcon data-hide={!isMenuOpen} />
       </button>
-      {isMenuMounted && (
+      {isMenuOpen && (
         <ul
-          className={cn(
-            styles.menu,
-            "flex flex-col absolute bg-gray-100 dark:bg-gray-900",
-            isMenuRendered && styles.menuRendered,
-          )}
+          className={cn(styles.menu, "flex flex-col absolute bg-gray-100 dark:bg-gray-900", styles.menuRendered, "box")}
         >
           {navLinks.map((link) => (
             <li

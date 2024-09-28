@@ -1,0 +1,19 @@
+---
+type Props = {
+  link: string;
+  title: string;
+  tipMsg: string;
+};
+const { link, title, tipMsg } = Astro.props as Props;
+---
+
+<a
+  href={link || "#"}
+  class="transform hover:scale-[1.01] transition-all border dark:border-gray-800 rounded p-4 w-full bg-white dark:bg-gray-900"
+  target={link ? "_blank" : "_self"}
+  rel="noopener noreferrer"
+>
+  <slot name="svg" />
+  <h3 class="text-lg font-bold text-left mt-2 text-gray-900 dark:text-gray-100">{title}</h3>
+  <p class="mt-1 text-gray-700 dark:text-gray-400">{tipMsg}</p>
+</a>

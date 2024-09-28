@@ -8,6 +8,7 @@ import Footer from "../components/Footer.astro";
 import Seo from "../components/Seo.astro";
 import FaviconMetaData from "../components/FaviconMetaData.astro";
 import { ViewTransitions } from "astro:transitions";
+import { HomeConfig } from "../config";
 
 interface Props {
   title?: string;
@@ -23,9 +24,14 @@ const { title, description, ogImage } = Astro.props as Props;
     <meta name="viewport" content="width=device-width" />
     <Seo title={title} description={description} ogImage={ogImage} />
     <FaviconMetaData />
-    <link rel="alternate" type="application/rss+xml" title="0xDedinfosec Blogs" href={`${Astro.site}rss.xml`} />
-    <ViewTransitions />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={`${HomeConfig.authorName} Blogs`}
+      href={`${Astro.site}rss.xml`}
+    />
     <Themes defaultTheme="dark" />
+    <ViewTransitions />
   </head>
   <body class="bg-gray-50 dark:bg-gray-900 text-black dark:text-white">
     <div class="flex flex-col justify-center px-8">
