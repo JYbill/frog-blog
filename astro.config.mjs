@@ -27,7 +27,6 @@ const prettyCodeOptions = {
 export default defineConfig({
   site: "",
   integrations: [tailwind(), react(), mdx(), sitemap()],
-
   markdown: {
     syntaxHighlight: false,
     extendDefaultPlugins: true,
