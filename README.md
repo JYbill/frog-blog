@@ -17,4 +17,4 @@
 
 # License
 
-Licensed under the [MIT license](https://github.com/0xdedinfosec/0xdedinfosec-astro/blob/main/LICENSE.md).
+Licensed under the [MIT license](LICENSE.md).
