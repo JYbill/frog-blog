@@ -25,7 +25,7 @@ const prettyCodeOptions = {
 
 // https://astro.build/config
 export default defineConfig({
-  site: "",
+  site: "http://baidu.com",
   integrations: [tailwind(), react(), mdx(), sitemap()],
   markdown: {
     syntaxHighlight: false,

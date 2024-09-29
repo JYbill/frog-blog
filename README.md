@@ -2,33 +2,18 @@
 
 [![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/0xdedinfosec/0xdedinfosec-astro)
 
-# 0xDedinfosec Blogs
+# Origin Author
+- [0xDedinfosec Blogs](https://github.com/0xdedinfosec/0xdedinfosec-astro)
+> 本项目基于该作者的项目将代码进行重构、组建抽离，并增加了一些额外的特效等功能
 
-![Banner](public/banner.png)
+# xiaoqinvar Blogs 🔥
 
--   **Framework**: [Astro](https://astro.build/)
--   **Deployment**: [Vercel](https://vercel.com) & [Cloudflare](https://pages.cloudflare.com/)
--   **Styling**: [Tailwind CSS](https://tailwindcss.com)
--   **Analytics**: [Vercel Analytics](https://vercel.com/analytics) & [Cloudflare Analytics
-    ](https://www.cloudflare.com/en-in/application-services/products/analytics/)
+![Banner](docs/images/banner.png)
 
-# 0xDedinfosec API
+- technology：astro、tailwindcss、typescript、react、gsap.js...
 
-> I use Cloudflare Workers to host my API.
-> [https://github.com/0xdedinfosec/0xdedinfosec-api](https://github.com/0xdedinfosec/0xdedinfosec-api)
-
-# BuyMeACoffee API
-
-> I'm using Buy Me a Coffee Developer API to gather contributions from users who support me in raising funds for the OSCP exam.
-
-You can obtain the `DONATION_API_SECRET` from https://developers.buymeacoffee.com/#/?id=authentication
-
-# .env
-
-```bash
-PUBLIC_API_URL="" # API URL
-DONATION_API_SECRET="" # Buy Me a Coffee Developer API Secret
-```
+# 项目配置文件
+- src/config/index.tsx（内有注释）
 
 # License
 

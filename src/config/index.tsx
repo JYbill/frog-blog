@@ -15,6 +15,6 @@ export const HomeConfig = {
   telegramLink: "",
   xTitle: "xiaoqinvar X",
   xLink: "",
-  followMeTitle: "Follow Me 🥇",
-  blogTitle: "Featured Posts 📚",
+  followMeTitle: "Follow Me 🥇", // "关注我"部分的标题
+  blogTitle: "Featured Posts 📚", // "博客"部分的标题
 };
