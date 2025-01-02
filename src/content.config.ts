@@ -12,7 +12,7 @@ const blogsCollection = defineCollection({
 });
 
 const snippetsCollection = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/snippets" }),
+  loader: glob({ pattern: "**/*.mdx", base: "./src/content/snippets" }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),

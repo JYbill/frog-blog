@@ -1,7 +1,6 @@
 ---
-import type { InferGetStaticParamsType, InferGetStaticPropsType, GetStaticPaths } from "astro";
-import { getCollection, render, getEntry } from "astro:content";
-import type { CollectionEntry } from "astro:content";
+import type { InferGetStaticPropsType, GetStaticPaths } from "astro";
+import { getCollection, render } from "astro:content";
 import MainLayout from "@/layouts/MainLayout.astro";
 import { Picture } from "astro:assets";
 import { format } from "date-fns";
@@ -10,7 +9,6 @@ import GiscusComment from "@/components/GiscusComment";
 import BlogPostViews from "@/components/BlogPostViews";
 import { HomeConfig } from "@/config";
 
-type Params = InferGetStaticParamsType<typeof getStaticPaths>;
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 export const getStaticPaths = (async () => {
@@ -26,7 +24,7 @@ export const getStaticPaths = (async () => {
 const { blog } = Astro.props as Props;
 const { Content } = await render(blog);
 const date = format(blog.data.date, "yyyy-MM-dd"); // 更新日期
-const readTime = readingTime(blog.body).text; // 阅读时间
+const readTime = readingTime(blog.body as string).text; // 阅读时间
 ---
 
 <MainLayout

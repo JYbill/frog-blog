@@ -1,5 +1,6 @@
 import { useState } from "react";
 import BlogPostViews from "./BlogPostViews";
+import type { CollectionEntry } from "astro:content";
 
 const BlogPostWithSearch = ({ sortedPosts }: { sortedPosts: any }) => {
   const [searchValue, setSearchValue] = useState("");
@@ -34,37 +35,25 @@ const BlogPostWithSearch = ({ sortedPosts }: { sortedPosts: any }) => {
       <h3 className="mt-8 mb-4 text-2xl font-bold tracking-tight text-black md:text-4xl dark:text-white">All Posts</h3>
       {!filteredBlogPosts.length && <p className="mb-4 text-gray-600 dark:text-gray-400">No posts found.</p>}
       {filteredBlogPosts.length > 0 &&
-        filteredBlogPosts.map(
-          (
-            post: {
-              slug: string;
-              data: {
-                title: string;
-                slug: string;
-                description: string;
-              };
-            },
-            key: number,
-          ) => (
-            <a href={`/blog/${post.slug}`} className="w-full" key={key}>
-              <div className="w-full mb-8">
-                <div className="flex flex-col justify-between md:flex-row">
-                  <h4 className="w-full mb-2 text-lg font-medium text-gray-900 md:text-xl dark:text-gray-100">
-                    {post.data.title}
-                  </h4>
-                  <div className="w-32 mb-4 text-left text-gray-500 md:text-right md:mb-0">
-                    <div className="flex items-center space-x-1">
-                      {" "}
-                      <BlogPostViews slug={post.slug} />
-                      <span>views</span>
-                    </div>
+        filteredBlogPosts.map((post: CollectionEntry<"blogs">, key: number) => (
+          <a href={`/blog/${post.id}`} className="w-full" key={key}>
+            <div className="w-full mb-8">
+              <div className="flex flex-col justify-between md:flex-row">
+                <h4 className="w-full mb-2 text-lg font-medium text-gray-900 md:text-xl dark:text-gray-100">
+                  {post.data.title}
+                </h4>
+                <div className="w-32 mb-4 text-left text-gray-500 md:text-right md:mb-0">
+                  <div className="flex items-center space-x-1">
+                    {" "}
+                    <BlogPostViews slug={post.id} />
+                    <span>views</span>
                   </div>
                 </div>
-                <p className="text-gray-600 dark:text-gray-400">{post.data.description}</p>
               </div>
-            </a>
-          ),
-        )}
+              <p className="text-gray-600 dark:text-gray-400">{post.data.description}</p>
+            </div>
+          </a>
+        ))}
     </>
   );
 };

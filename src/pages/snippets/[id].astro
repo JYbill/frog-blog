@@ -1,18 +1,18 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import MainLayout from "../../layouts/MainLayout.astro";
 import { Picture } from "astro:assets";
 
 export async function getStaticPaths() {
   const snippetsEntries = await getCollection("snippets");
   return snippetsEntries.map((snippet) => ({
-    params: { slug: snippet.slug },
+    params: { id: snippet.id },
     props: { snippet },
   }));
 }
 
 const { snippet } = Astro.props;
-const { Content } = await snippet.render();
+const { Content } = await render(snippet);
 ---
 
 <MainLayout

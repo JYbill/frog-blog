@@ -10,6 +10,8 @@ import rehypePrettyCode from "rehype-pretty-code";
 import sitemap from "@astrojs/sitemap";
 import cloudflare from "@astrojs/cloudflare";
 
+const isProd = import.meta.env.MODE === "production";
+
 const prettyCodeOptions = {
   theme,
   onVisitHighlightedLine(node) {
@@ -50,5 +52,5 @@ export default defineConfig({
 
   // SSG优先
   output: "static",
-  adapter: cloudflare(),
+  ...(isProd ? { adapter: cloudflare() } : {}),
 });
