@@ -9,6 +9,7 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrettyCode from "rehype-pretty-code";
 import sitemap from "@astrojs/sitemap";
 import cloudflare from "@astrojs/cloudflare";
+import { visualizer } from "rollup-plugin-visualizer";
 
 const isProd = import.meta.env.MODE === "production";
 
@@ -28,6 +29,14 @@ const prettyCodeOptions = {
 // https://astro.build/config
 export default defineConfig({
   site: "http://baidu.com",
+  vite: {
+    plugins: [
+      visualizer({
+        emitFile: true,
+        filename: "stats.html",
+      }),
+    ],
+  },
   integrations: [tailwind(), react(), mdx(), sitemap()],
   markdown: {
     syntaxHighlight: false,
