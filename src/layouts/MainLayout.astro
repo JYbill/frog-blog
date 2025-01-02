@@ -7,7 +7,7 @@ import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 import Seo from "../components/Seo.astro";
 import FaviconMetaData from "../components/FaviconMetaData.astro";
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 import { HomeConfig } from "../config";
 
 interface Props {
@@ -31,7 +31,7 @@ const { title, description, ogImage } = Astro.props as Props;
       href={`${Astro.site}rss.xml`}
     />
     <Themes defaultTheme="dark" />
-    <ViewTransitions />
+    <ClientRouter />
   </head>
   <body class="bg-gray-50 dark:bg-gray-900 text-black dark:text-white">
     <div class="flex flex-col justify-center px-8">

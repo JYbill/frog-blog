@@ -19,9 +19,9 @@ const allSnippets = await getCollection("snippets");
       {
         allSnippets.map((snippet) => (
           <FunctionCard
-            key={snippet.slug}
+            key={snippet.id}
             title={snippet.data.title}
-            slug={snippet.slug}
+            slug={snippet.id}
             image={snippet.data.image}
             description={snippet.data.description}
           />
