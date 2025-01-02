@@ -49,6 +49,6 @@ export default defineConfig({
   },
 
   // SSG优先
-  output: "hybrid",
+  output: "static",
   adapter: cloudflare(),
 });

@@ -1,9 +1,10 @@
 ---
 import type { InferGetStaticParamsType, InferGetStaticPropsType, GetStaticPaths } from "astro";
-import { getCollection } from "astro:content";
+import { getCollection, render, getEntry } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 import MainLayout from "@/layouts/MainLayout.astro";
 import { Picture } from "astro:assets";
-import { format, parseISO } from "date-fns";
+import { format } from "date-fns";
 import readingTime from "reading-time";
 import GiscusComment from "@/components/GiscusComment";
 import BlogPostViews from "@/components/BlogPostViews";
@@ -16,14 +17,14 @@ export const getStaticPaths = (async () => {
   const blogsEntries = await getCollection("blogs");
   return blogsEntries.map((blog) => {
     return {
-      params: { slug: blog.slug },
+      params: { id: blog.id },
       props: { blog },
     };
   });
 }) satisfies GetStaticPaths;
 
 const { blog } = Astro.props as Props;
-const { Content } = await blog.render();
+const { Content } = await render(blog);
 const date = format(blog.data.date, "yyyy-MM-dd"); // 更新日期
 const readTime = readingTime(blog.body).text; // 阅读时间
 ---
@@ -47,7 +48,7 @@ const readTime = readingTime(blog.body).text; // 阅读时间
       <p class="mt-2 text-sm text-gray-600 dark:text-gray-400 min-w-32 md:mt-0">
         {readTime}
         {` • `}
-        <BlogPostViews client:only="react" slug={blog.slug} className="views" increment />
+        <BlogPostViews client:only="react" slug={blog.id} className="views" increment />
       </p>
     </div>
     <div class="w-full mt-4 prose dark:prose-dark max-w-none break-words">
