@@ -91,7 +91,7 @@ const colors = [
     <div class="flex gap-6 flex-col md:flex-row w-full">
       {
         sortedPosts.slice(0, 3).map((post, key) => {
-          return <BlogPostCard title={post.data.title} slug={post.slug} gradient={colors[key]} />;
+          return <BlogPostCard title={post.data.title} slug={post.id} gradient={colors[key]} />;
         })
       }
     </div>
@@ -99,7 +99,7 @@ const colors = [
       href="/blog"
       class="flex items-center mt-8 text-gray-600 dark:text-gray-400 leading-7 rounded-lg hover:text-gray-800 dark:hover:text-gray-200 transition-all h-6"
     >
-      <>
+      <div>
         更多内容
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="h-6 w-6 ml-1">
           <path
@@ -109,7 +109,7 @@ const colors = [
             stroke-width={2}
             d="M17.5 12h-15m11.667-4l3.333 4-3.333-4zm3.333 4l-3.333 4 3.333-4z"></path>
         </svg>
-      </>
+      </div>
     </a>
   </div>
 </MainLayout>

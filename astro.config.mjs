@@ -61,5 +61,5 @@ export default defineConfig({
 
   // SSG优先
   output: "static",
-  ...(isProd ? { adapter: cloudflare() } : {}),
+  /*...(isProd ? { adapter: cloudflare() } : {}),*/
 });

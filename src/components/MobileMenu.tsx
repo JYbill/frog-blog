@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from "react";
+import type { JSX } from "react";
+import { useState, useEffect } from "react";
 import styles from "../styles/mobile-menu.module.css";
 import { cn } from "../lib/utils";
 import navLinks from "./navLinks.json";
