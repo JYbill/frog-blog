@@ -23,7 +23,8 @@ export const getStaticPaths = (async () => {
 
 const { blog } = Astro.props as Props;
 const { Content } = await render(blog);
-const date = format(blog.data.date, "yyyy-MM-dd"); // 更新日期
+// const date = format(blog.data.date, "yyyy-MM-dd"); // 更新日期
+const date = "2021-10-10 10:00:00";
 const readTime = readingTime(blog.body as string).text; // 阅读时间
 ---
 
