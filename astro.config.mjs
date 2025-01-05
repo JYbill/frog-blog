@@ -28,7 +28,7 @@ const prettyCodeOptions = {
 
 // https://astro.build/config
 export default defineConfig({
-  site: "http://baidu.com",
+  site: "https://blog.jybill.top",
   vite: {
     plugins: [
       visualizer({

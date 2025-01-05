@@ -14,7 +14,7 @@ export default function GiscusComment() {
   }, [theme]);
   return theme ? (
     <div className="mt-12 border-t pt-6 border-gray-200 dark:border-gray-800 w-full">
-      <Giscus
+      {/*<Giscus
         id="comments"
         repo="DEDSEC-MAX/website-comments"
         repoId="R_kgDOGZa4PA"
@@ -28,7 +28,7 @@ export default function GiscusComment() {
         theme={theme === "dark" ? "dark" : "light"}
         lang="en"
         loading="lazy"
-      />
+      />*/}
     </div>
   ) : (
     <></>

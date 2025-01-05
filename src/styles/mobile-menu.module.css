@@ -1,3 +1,7 @@
+.mobileNav {
+    height: 93vh;
+}
+
 .burger {
   transition: opacity 300ms ease;
   border: 0;
@@ -23,17 +27,13 @@
 }
 
 .menu {
-  padding: 0 28px 0 4px;
+  padding-top: 10px;
   margin: 0;
-  padding-top: 24px;
   width: 100%;
-  height: 100vh;
+  min-height: 500px;
   z-index: 1000;
   opacity: 0;
   left: 0;
-  transition:
-    opacity 300ms ease,
-    transform 300ms ease;
 }
 
 .menu li {
@@ -44,7 +44,7 @@
     transform 300ms ease,
     width 300ms ease,
     border-color 300ms ease;
-  width: 0px;
+  width: 0;
   white-space: nowrap;
 }
 
@@ -64,7 +64,7 @@
 
 @keyframes grow {
   0% {
-    height: 0px;
+    height: 0;
   }
   100% {
     height: 24px;

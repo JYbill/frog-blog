@@ -1,0 +1,63 @@
+---
+import { cn } from "../lib/utils";
+import MenuIcon from "./Icons/MenuIcon.astro";
+import CrossIcon from "./Icons/CrossIcon.astro";
+import navLinks from "./navLinks.json";
+import styles from "@/styles/mobile-menu.module.css";
+---
+
+<button
+  id="menuBtn"
+  class={cn(styles.burger, "visible md:hidden absolute")}
+  aria-label="Toggle menu"
+  type="button"
+  transition:persist
+>
+  <MenuIcon data-hide="false" />
+  <CrossIcon data-hide="true" />
+</button>
+<div id="mobile-nav" class={cn(styles.mobileNav)} style={{ display: "none" }} transition:persist>
+  <ul class={cn(styles.menu, "flex flex-col bg-gray-100 dark:bg-gray-900", styles.menuRendered, "box")}>
+    {
+      navLinks.map((link) => (
+        <li class="border-b border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-100 text-sm font-semibold">
+          <a href={link.href} class="flex w-auto pb-4">
+            {link.name}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+<script>
+  import gsap from "https://cdn.jsdelivr.net/npm/gsap@3.12.5/+esm";
+  const menuBtn = document.getElementById("menuBtn")!;
+  const menuIconSVG = document.getElementById("menuIconSVG") as HTMLOrSVGElement;
+  const CrossIconSVG = document.getElementById("CrossIconSVG") as HTMLOrSVGElement;
+  const mobileNav = document.getElementById("mobile-nav")!;
+  const box = document.querySelector(".box")!;
+
+  // 按钮
+  let openMenu = false;
+  menuBtn.addEventListener("click", () => {
+    openMenu = !openMenu;
+    menuIconSVG.dataset.hide = openMenu.toString();
+    CrossIconSVG.dataset.hide = (!openMenu).toString();
+    if (openMenu) {
+      mobileNav.style.display = "block";
+      gsap.fromTo(mobileNav, { x: "-100%" }, { x: "0", duration: 0.5, ease: "bounce" });
+    } else {
+      mobileNav.style.display = "none";
+    }
+  });
+
+  box.addEventListener("click", (evt) => {
+    if ((evt.target as HTMLElement).classList.contains("box")) {
+      return;
+    }
+    openMenu = false;
+    mobileNav.style.display = "none";
+    menuIconSVG.dataset.hide = "false";
+    CrossIconSVG.dataset.hide = "true";
+  });
+</script>
