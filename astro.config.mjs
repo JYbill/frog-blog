@@ -38,6 +38,7 @@ export default defineConfig({
     ],
   },
   integrations: [tailwind(), react(), mdx(), sitemap()],
+  scopedStyleStrategy: "class",
   markdown: {
     syntaxHighlight: false,
     extendDefaultPlugins: true,
