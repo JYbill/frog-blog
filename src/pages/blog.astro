@@ -1,10 +1,25 @@
 ---
+import fs from "fs/promises";
+import path from "path";
 import { getCollection } from "astro:content";
-import MainLayout from "../layouts/MainLayout.astro";
-import BlogPostWithSearch from "../components/BlogPostWithSearch";
+import MainLayout from "@/layouts/MainLayout.astro";
+import BlogPostWithSearch from "@/components/BlogPostWithSearch";
+import type { BlogType } from "@/types/blog";
 
-const allBlogPosts = await getCollection("blogs");
-const sortedPosts = allBlogPosts.sort((a, b) => Number(new Date(b.data.date)) - Number(new Date(a.data.date)));
+const blogCollectionEntries = await getCollection("blogs");
+const blogs: BlogType[] = [];
+for (const blog of blogCollectionEntries) {
+  const filePath = blog.filePath as string;
+  const stats = await fs.stat(filePath);
+  const ext = path.extname(filePath);
+  blogs.push({
+    title: path.basename(filePath, ext),
+    id: blog.id,
+    desc: blog.data.description,
+    modifyTime: stats.mtimeMs,
+  });
+}
+const sortBlogs = blogs.sort((a, b) => b.modifyTime - a.modifyTime);
 ---
 
 <MainLayout title="Blog">
@@ -13,12 +28,10 @@ const sortedPosts = allBlogPosts.sort((a, b) => Number(new Date(b.data.date)) - 
       Blog
     </h1>
     <p class="mb-4 text-gray-600 dark:text-gray-400">
-      {
-        `I post my hackthebox writeups and other infoSec findings here.
-            In total, I've written ${sortedPosts.length} articles on my blog.
-            Use the search below to filter by title.`
-      }
+      I write a variety of tech blogs in my daily life, There are
+      <strong>{sortBlogs.length}</strong>
+      articles in total. Use the search below to filter by title.
     </p>
-    <BlogPostWithSearch client:only="react" sortedPosts={sortedPosts} />
+    <BlogPostWithSearch client:only="react" sortBlogs={sortBlogs} />
   </div>
 </MainLayout>

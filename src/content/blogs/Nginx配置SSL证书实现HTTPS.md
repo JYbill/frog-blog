@@ -1,5 +1,6 @@
 ---
-typora-root-url: images
+slug: nginx-ssl-config
+description: Nginx配置SSL，包括SSL证书配置、nginx反向代理配置
 ---
 
 # Nginx配置SSL证书实现HTTPS
@@ -20,23 +21,23 @@ typora-root-url: images
 
 + [https://console.cloud.tencent.com/ssl](https://console.cloud.tencent.com/ssl)
 
-![](/Nginx配置SSL证书实现HTTPS1.png)
+![](https://image.jybill.top/md/202501061724508.png)
 
 > 申请很简单，一步一步走就行了...😃
 
 + 一分钟内就可以领取到免费证书
 
-![](/Nginx配置SSL证书实现HTTPS2.png)
+![](https://image.jybill.top/md/202501061724193.png)
 
 > 下载的压缩包里面包含`tomcat`、`nginx`、`apache`...， 我们肯定只需要`nginx`的，想看更详细的操作：[https://cloud.tencent.com/document/product/400/35244](https://cloud.tencent.com/document/product/400/35244)
 
-+ 将`Nginx`包下的两个文件：`*.crt`、`*.key`放在云服务器或者本地，随便放哪，**记住位置要用** 
++ 将`Nginx`包下的两个文件：`*.crt`、`*.key`放在云服务器或者本地，随便放哪，**记住位置要用**
 
 ## 二、配置Nginx的SSL证书并实现反向代理普通的HTTP
 
 + 我的证书在我的Linux服务器上
 
-![Nginx配置SSL证书实现HTTPS3](/Nginx配置SSL证书实现HTTPS3.png)
+![Nginx配置SSL证书实现HTTPS3](https://image.jybill.top/md/202501061724216.png)
 
 + config配置
 
@@ -66,6 +67,6 @@ typora-root-url: images
    }
 ```
 
-![](/Nginx配置SSL证书实现HTTPS4.png)
+![](https://image.jybill.top/md/202501061724229.png)
 
 > `10.24` - 全年无BUG符！祝接下来的SprngClound、React、Taro学习顺畅物阻...😜

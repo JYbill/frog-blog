@@ -1,12 +1,10 @@
 import { useState } from "react";
 import BlogPostViews from "./BlogPostViews";
-import type { CollectionEntry } from "astro:content";
+import type { BlogType } from "@/types/blog";
 
-const BlogPostWithSearch = ({ sortedPosts }: { sortedPosts: any }) => {
+const BlogPostWithSearch = ({ sortBlogs }: { sortBlogs: BlogType[] }) => {
   const [searchValue, setSearchValue] = useState("");
-  const filteredBlogPosts = sortedPosts.filter((post: any) =>
-    post.data.title.toLowerCase().includes(searchValue.toLowerCase()),
-  );
+  const filteredBlogPosts = sortBlogs.filter((blog) => blog.title.toLowerCase().includes(searchValue.toLowerCase()));
   return (
     <>
       <div className="relative w-full mb-4">
@@ -35,22 +33,21 @@ const BlogPostWithSearch = ({ sortedPosts }: { sortedPosts: any }) => {
       <h3 className="mt-8 mb-4 text-2xl font-bold tracking-tight text-black md:text-4xl dark:text-white">All Posts</h3>
       {!filteredBlogPosts.length && <p className="mb-4 text-gray-600 dark:text-gray-400">No posts found.</p>}
       {filteredBlogPosts.length > 0 &&
-        filteredBlogPosts.map((post: CollectionEntry<"blogs">, key: number) => (
-          <a href={`/blog/${post.id}`} className="w-full" key={key}>
+        filteredBlogPosts.map((blog, key: number) => (
+          <a href={`/blog/${blog.id}`} className="w-full" key={key}>
             <div className="w-full mb-8">
               <div className="flex flex-col justify-between md:flex-row">
                 <h4 className="w-full mb-2 text-lg font-medium text-gray-900 md:text-xl dark:text-gray-100">
-                  {post.data.title}
+                  {blog.title}
                 </h4>
                 <div className="w-32 mb-4 text-left text-gray-500 md:text-right md:mb-0">
                   <div className="flex items-center space-x-1">
-                    {" "}
-                    <BlogPostViews slug={post.id} />
+                    <BlogPostViews />
                     <span>views</span>
                   </div>
                 </div>
               </div>
-              <p className="text-gray-600 dark:text-gray-400">{post.data.description}</p>
+              <p className="text-gray-600 dark:text-gray-400">{blog.desc}</p>
             </div>
           </a>
         ))}
