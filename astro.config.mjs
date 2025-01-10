@@ -62,5 +62,8 @@ export default defineConfig({
 
   // SSG优先
   output: "static",
-  /*...(isProd ? { adapter: cloudflare() } : {}),*/
+  adapter: cloudflare({
+    imageService: "cloudflare",
+    platformProxy: {},
+  }),
 });
