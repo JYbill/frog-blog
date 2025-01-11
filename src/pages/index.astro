@@ -1,14 +1,28 @@
 ---
 import { Picture } from "astro:assets";
-import MainLayout from "../layouts/MainLayout.astro";
+import MainLayout from "@/layouts/MainLayout.astro";
 import { getCollection } from "astro:content";
-import AllTimeViews from "../components/AllTimeViews";
-import BlogPostCard from "../components/BlogPostCard.astro";
-import { HomeConfig } from "../config";
+import AllTimeViews from "@/components/AllTimeViews";
+import BlogPostCard from "@/components/BlogPostCard.astro";
+import { HomeConfig } from "@/config";
 import FollowMeCard from "@/components/FollowMeCard/index.astro";
+import type { BlogType } from "@/types/blog";
+import { stat } from "node:fs/promises";
+import { getTitleByPath } from "../lib/util.node";
 
 const allBlogPosts = await getCollection("blogs");
-const sortedPosts = allBlogPosts.sort((a, b) => Number(new Date(b.data.date)) - Number(new Date(a.data.date)));
+const blogs: BlogType[] = [];
+for (const blog of allBlogPosts) {
+  const filePath = blog.filePath as string;
+  const stats = await stat(filePath);
+  blogs.push({
+    title: getTitleByPath(filePath),
+    id: blog.id,
+    desc: blog.data.description,
+    modifyTime: stats.mtimeMs,
+  });
+}
+const sortBlogs = blogs.sort((a, b) => b.modifyTime - a.modifyTime);
 
 const colors = [
   "from-[#D8B4FE] to-[#818CF8]",
@@ -90,8 +104,8 @@ const colors = [
     </h3>
     <div class="flex gap-6 flex-col md:flex-row w-full">
       {
-        sortedPosts.slice(0, 3).map((post, key) => {
-          return <BlogPostCard title={post.data.title} slug={post.id} gradient={colors[key]} />;
+        sortBlogs.slice(0, 3).map((post, key) => {
+          return <BlogPostCard title={post.title} slug={post.id} gradient={colors[key]} />;
         })
       }
     </div>

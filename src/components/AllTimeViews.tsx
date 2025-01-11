@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { formatViews } from "../lib/utils";
 
 const AllTimeViews = () => {
-  const [views, setViews] = useState<number>(0);
+  const [views, _setViews] = useState<number>(0);
 
   return (
     <div className="transform hover:scale-[1.01] transition-all border dark:border-gray-800 rounded p-4 w-full bg-white dark:bg-gray-900">

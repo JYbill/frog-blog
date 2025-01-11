@@ -4,7 +4,7 @@ import { getCollection } from "astro:content";
 import MainLayout from "@/layouts/MainLayout.astro";
 import BlogPostWithSearch from "@/components/BlogPostWithSearch";
 import type { BlogType } from "@/types/blog";
-import { getTitleByPath } from "../lib/utils";
+import { getTitleByPath } from "../lib/util.node";
 
 const blogCollectionEntries = await getCollection("blogs");
 const blogs: BlogType[] = [];
