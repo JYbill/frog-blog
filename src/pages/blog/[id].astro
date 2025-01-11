@@ -3,39 +3,37 @@ import type { InferGetStaticPropsType, GetStaticPaths } from "astro";
 import { getCollection, render } from "astro:content";
 import MainLayout from "@/layouts/MainLayout.astro";
 import { Picture } from "astro:assets";
-import { format } from "date-fns";
-import readingTime from "reading-time";
+import readingTime from "reading-time/lib/reading-time.js";
 import GiscusComment from "@/components/GiscusComment";
 import BlogPostViews from "@/components/BlogPostViews";
 import { HomeConfig } from "@/config";
+import { getTitleByPath } from "../../lib/utils";
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 export const getStaticPaths = (async () => {
   const blogsEntries = await getCollection("blogs");
   return blogsEntries.map((blog) => {
+    const filePath = blog.filePath as string;
+    const title = getTitleByPath(filePath);
     return {
       params: { id: blog.id },
-      props: { blog },
+      props: { blog, title },
     };
   });
 }) satisfies GetStaticPaths;
 
-const { blog } = Astro.props as Props;
+const { blog, title } = Astro.props as Props;
 const { Content } = await render(blog);
 // const date = format(blog.data.date, "yyyy-MM-dd"); // 更新日期
 const date = "2021-10-10 10:00:00";
 const readTime = readingTime(blog.body as string).text; // 阅读时间
 ---
 
-<MainLayout
-  title={blog.data.title}
-  description={blog.data.description}
-  ogImage={Astro.site + "images/hackthebox/" + blog.data.image}
->
+<MainLayout title={title} description={blog.data.description} ogImage={Astro.site + "og.png"}>
   <article class="flex flex-col items-start justify-center w-full max-w-2xl mx-auto mb-16">
     <h1 class="mb-4 text-3xl font-bold tracking-tight text-black md:text-5xl dark:text-white" transition:name="fade">
-      {blog.data.title}
+      {title}
     </h1>
     <div class="flex flex-col items-start justify-between w-full mt-2 md:flex-row md:items-center">
       <div class="flex items-center">
@@ -47,7 +45,7 @@ const readTime = readingTime(blog.body as string).text; // 阅读时间
       <p class="mt-2 text-sm text-gray-600 dark:text-gray-400 min-w-32 md:mt-0">
         {readTime}
         {` • `}
-        <BlogPostViews client:only="react" slug={blog.id} className="views" increment />
+        <BlogPostViews client:only="react" />
       </p>
     </div>
     <div class="w-full mt-4 prose dark:prose-dark max-w-none break-words">

@@ -1,4 +1,3 @@
-// @ts-check
 import { defineConfig } from "astro/config";
 import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
@@ -10,8 +9,6 @@ import rehypePrettyCode from "rehype-pretty-code";
 import sitemap from "@astrojs/sitemap";
 import cloudflare from "@astrojs/cloudflare";
 import { visualizer } from "rollup-plugin-visualizer";
-
-const isProd = import.meta.env.MODE === "production";
 
 const prettyCodeOptions = {
   theme,
@@ -30,6 +27,13 @@ const prettyCodeOptions = {
 export default defineConfig({
   site: "https://blog.jybill.top",
   vite: {
+    build: {
+      minify: false,
+    },
+    ssr: {
+      external: ["node:fs/promises", "node:path", "node:buffer"],
+      noExternal: ["readingTime"],
+    },
     plugins: [
       visualizer({
         emitFile: true,
@@ -64,6 +68,13 @@ export default defineConfig({
   output: "static",
   adapter: cloudflare({
     imageService: "cloudflare",
-    platformProxy: {},
+    platformProxy: {
+      enabled: true,
+      configPath: "wrangler.json",
+      experimentalRegistry: false,
+      persist: {
+        path: ".cache/v3",
+      },
+    },
   }),
 });

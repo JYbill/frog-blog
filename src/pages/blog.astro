@@ -1,19 +1,18 @@
 ---
-import fs from "fs/promises";
-import path from "path";
+import { stat } from "node:fs/promises";
 import { getCollection } from "astro:content";
 import MainLayout from "@/layouts/MainLayout.astro";
 import BlogPostWithSearch from "@/components/BlogPostWithSearch";
 import type { BlogType } from "@/types/blog";
+import { getTitleByPath } from "../lib/utils";
 
 const blogCollectionEntries = await getCollection("blogs");
 const blogs: BlogType[] = [];
 for (const blog of blogCollectionEntries) {
   const filePath = blog.filePath as string;
-  const stats = await fs.stat(filePath);
-  const ext = path.extname(filePath);
+  const stats = await stat(filePath);
   blogs.push({
-    title: path.basename(filePath, ext),
+    title: getTitleByPath(filePath),
     id: blog.id,
     desc: blog.data.description,
     modifyTime: stats.mtimeMs,
