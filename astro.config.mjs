@@ -67,7 +67,7 @@ export default defineConfig({
   // SSG优先
   output: "static",
   adapter: cloudflare({
-    imageService: "cloudflare",
+    imageService: "passthrough",
     platformProxy: {
       enabled: true,
       configPath: "wrangler.json",
