@@ -31,7 +31,7 @@ export default defineConfig({
       minify: false,
     },
     ssr: {
-      external: ["node:fs/promises", "node:path", "node:buffer"],
+      external: ["node:fs/promises", "node:path", "node:buffer", "./src/lib/utils.ts"],
       noExternal: ["readingTime"],
     },
     plugins: [

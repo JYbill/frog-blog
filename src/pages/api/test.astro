@@ -1,0 +1,29 @@
+---
+import { Buffer } from "node:buffer";
+export const prerender = false;
+
+const runtime = Astro.locals.runtime;
+const { env } = runtime;
+
+/*const imageBuffer = fetch("https://image.jybill.top/md/202501061724508.png").then(async (res) => {
+  const buffer = res.arrayBuffer();
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(buffer);
+    }, 1000);
+  });
+});*/
+const url: string = await new Promise((resolve) => {
+  setTimeout(() => {
+    resolve("https://image.jybill.top/md/202501061724508.png");
+  }, 500);
+});
+---
+
+<meta charset="UTF-8" />
+<div>
+  test SSR pages
+  <div>name: {env.name}</div>
+  <div>buffer: {[...Buffer.from("你好")].join("|")}</div>
+  <img src={url} />
+</div>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { formatViews } from "../lib/utils";
+import { formatViews } from "../lib/client-ssg.runtime.ts";
 
 const BlogPostViews = () => {
   const [views, _setViews] = useState<number>(0);
