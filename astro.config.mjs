@@ -26,6 +26,10 @@ const prettyCodeOptions = {
 // https://astro.build/config
 export default defineConfig({
   site: "https://blog.jybill.top",
+  image: {
+    domains: ["jybill.top"],
+    remotePatterns: [{ protocol: "https" }],
+  },
   vite: {
     build: {
       minify: false,
@@ -67,7 +71,7 @@ export default defineConfig({
   // SSG优先
   output: "static",
   adapter: cloudflare({
-    imageService: "passthrough",
+    // imageService: "passthrough",
     platformProxy: {
       enabled: true,
       configPath: "wrangler.json",

@@ -1,5 +1,7 @@
 ---
 import { Buffer } from "node:buffer";
+import { Image } from "astro:assets";
+import FrogImage from "@/assets/images/avatar.jpg";
 export const prerender = false;
 
 const runtime = Astro.locals.runtime;
@@ -9,6 +11,9 @@ const { env } = runtime;
 <meta charset="UTF-8" />
 <div>
   test SSR pages
-  <div>name: {env.name}</div>
-  <div>buffer: {[...Buffer.from("你好")].join("|")}</div>
+  <div>test</div>
+  <img src={FrogImage.src} width={100} />
+  <Image src={FrogImage} width={100} height={100} alt="avator" />
+  <Image src={FrogImage} width={500} height={500} alt="avator" />
+  <Image src="https://image.jybill.top/forg.png" width={100} height={100} alt="avator" />
 </div>
