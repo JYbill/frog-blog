@@ -4,7 +4,6 @@ import { getCollection, render } from "astro:content";
 import MainLayout from "@/layouts/MainLayout.astro";
 import { Picture } from "astro:assets";
 import readingTime from "reading-time/lib/reading-time.js";
-import GiscusComment from "@/components/GiscusComment";
 import BlogPostViews from "@/components/BlogPostViews";
 import { HomeConfig } from "@/config";
 import { getTitleByPath } from "../../lib/node.runtime";
@@ -52,7 +51,24 @@ const readTime = readingTime(blog.body as string).text; // 阅读时间
       <h2>Description</h2>
       <p>{blog.data.description}</p>
       <Content />
+      <giscus-widget
+        id="comments"
+        repo="JYbill/disscusion-blog"
+        repoid="R_kgDONsAssQ"
+        category="Announcements"
+        categoryid="DIC_kwDONsAssc4CmISc"
+        mapping="pathname"
+        term="Welcome to giscus!"
+        reactionsenabled="1"
+        emitmetadata="0"
+        inputposition="top"
+        theme="preferred_color_scheme"
+        lang="zh-CN"
+        loading="lazy"
+        strict="1"></giscus-widget>
     </div>
-    <GiscusComment client:only="react" />
   </article>
 </MainLayout>
+<script>
+  import "https://cdn.jsdelivr.net/npm/giscus@1.6.0/+esm";
+</script>

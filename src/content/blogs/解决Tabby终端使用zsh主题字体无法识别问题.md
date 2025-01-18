@@ -6,13 +6,13 @@ description: 解决Tabby终端使用zsh主题字体无法识别问题
 
 + 我的问题：在使用了`p10k`主题后我的界面是这个鬼样子的👺
 
-![](https://gitee.com/JYbill/typroa_pic/raw/master//%E5%8D%9A%E5%AE%A2/%E8%A7%A3%E5%86%B3Tabby%E7%BB%88%E7%AB%AF%E4%BD%BF%E7%94%A8zsh%E4%B8%BB%E9%A2%98%E5%AD%97%E4%BD%93%E6%97%A0%E6%B3%95%E8%AF%86%E5%88%AB%E9%97%AE%E9%A2%981.png)
+<img src="https://image.jybill.top/md/202501181739635.png" alt="img" style="zoom:50%;" />
 
 > 作为一个颜控，接受了无数大前端UI框架的洗刷下，这简直对我来说时玷污，我的font icon呢？就这？
 
 + **提示**：在`GNOME`内是正常的
 
-![](https://gitee.com/JYbill/typroa_pic/raw/master//%E5%8D%9A%E5%AE%A2/%E8%A7%A3%E5%86%B3Tabby%E7%BB%88%E7%AB%AF%E4%BD%BF%E7%94%A8zsh%E4%B8%BB%E9%A2%98%E5%AD%97%E4%BD%93%E6%97%A0%E6%B3%95%E8%AF%86%E5%88%AB%E9%97%AE%E9%A2%982.png)
+<img src="https://image.jybill.top/md/202501181739515.png" alt="img" style="zoom:60%;" />
 
 > 解决思路：既然字体显示不出来那就添加能解析出来的字体
 
@@ -34,11 +34,11 @@ description: 解决Tabby终端使用zsh主题字体无法识别问题
 5. 双击后有个`安装`，点击
 6. 为你的`tabby`换上新字体
 
-![](https://gitee.com/JYbill/typroa_pic/raw/master//%E5%8D%9A%E5%AE%A2/%E8%A7%A3%E5%86%B3Tabby%E7%BB%88%E7%AB%AF%E4%BD%BF%E7%94%A8zsh%E4%B8%BB%E9%A2%98%E5%AD%97%E4%BD%93%E6%97%A0%E6%B3%95%E8%AF%86%E5%88%AB%E9%97%AE%E9%A2%983.png)
+<img src="https://image.jybill.top/md/202501181740840.png" alt="img" style="zoom: 50%;" />
 
 > 然后就是享受的时刻了
 
-![](https://gitee.com/JYbill/typroa_pic/raw/master//%E5%8D%9A%E5%AE%A2/%E8%A7%A3%E5%86%B3Tabby%E7%BB%88%E7%AB%AF%E4%BD%BF%E7%94%A8zsh%E4%B8%BB%E9%A2%98%E5%AD%97%E4%BD%93%E6%97%A0%E6%B3%95%E8%AF%86%E5%88%AB%E9%97%AE%E9%A2%984.png)
+<img src="https://image.jybill.top/md/202501181740197.png" alt="img" style="zoom:50%;" />
 
 
 
