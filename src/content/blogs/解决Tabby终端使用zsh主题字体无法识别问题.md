@@ -1,3 +1,7 @@
+---
+slug: solve-tabby-terminal-zsh-theme-font-unrecognizable
+description: 解决Tabby终端使用zsh主题字体无法识别问题
+---
 # 解决Tabby终端使用zsh主题字体无法识别问题
 
 + 我的问题：在使用了`p10k`主题后我的界面是这个鬼样子的👺

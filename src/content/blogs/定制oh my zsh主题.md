@@ -1,3 +1,7 @@
+---
+slug: customize-oh-my-zsh-theme
+description: 定制oh my zsh主题
+---
 # 定制oh my zsh主题
 
 > ANSI控制码详细参考：[https://juejin.cn/post/6920241597846126599#heading-5](https://juejin.cn/post/6920241597846126599#heading-5)

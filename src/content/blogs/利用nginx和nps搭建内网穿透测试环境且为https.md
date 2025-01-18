@@ -1,3 +1,7 @@
+---
+slug: nginx-nps-https
+description: 利用nginx和nps搭建内网穿透测试环境且为https
+---
 # 利用nginx和nps搭建内网穿透测试环境且为https
 
 - 基本的nginx、nps这里不再说明

@@ -1,5 +1,6 @@
 ---
-typora-root-url: images
+slug: centos-offline-install-node-pm2
+description: Centos离线安装Node和PM2
 ---
 
 # Centos离线安装Node和PM2

@@ -1,3 +1,8 @@
+---
+slug: vscode-install-powershell7-oh-my-post
+description: 安装PowerShell7并在vscode中使用，安装oh-my-post实现主题和历史命令提示
+---
+
 # 安装PowerShell7并在vscode中使用  安装oh-my-post实现主题和历史命令提示
 
 

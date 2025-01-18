@@ -1,3 +1,7 @@
+---
+slug: yum-install-docker
+description: Docker和yum工具安装
+---
 # 安装yum工具
 
 1. 安装yum工具

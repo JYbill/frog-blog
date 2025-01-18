@@ -1,9 +1,6 @@
 ---
-title: okmd
-slug: ok
-description: 你好ok
-date: 2022-10-29
-image: hackthebox-awkward-writeup.webp
+slug: nslookup-bad-address-problem
+description: alpine dig/nslookup存在ipv4记录但ping命令报错bad address
 ---
 # alpine dig/nslookup存在ipv4记录但ping命令报错bad address
 
