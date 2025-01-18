@@ -18,3 +18,21 @@ export const HomeConfig = {
   followMeTitle: "Follow Me 🥇", // "关注我"部分的标题
   blogTitle: "Featured Posts 📚", // "博客"部分的标题
 };
+
+/**
+ * header链接配置
+ */
+export const headerLinks = [
+  {
+    name: "Home",
+    href: "/",
+  },
+  {
+    name: "Donation",
+    href: "/donation",
+  },
+  {
+    name: "Blog",
+    href: "/blog",
+  },
+];

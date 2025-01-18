@@ -1,4 +1,4 @@
-import { defineConfig } from "astro/config";
+import { defineConfig, passthroughImageService } from "astro/config";
 import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
 import mdx from "@astrojs/mdx";
@@ -35,7 +35,7 @@ export default defineConfig({
       minify: false,
     },
     ssr: {
-      external: ["node:fs/promises", "node:path", "node:buffer", "./src/lib/utils.ts"],
+      external: ["node:fs/promises", "node:path", "node:buffer"],
       noExternal: ["readingTime"],
     },
     plugins: [
@@ -71,7 +71,6 @@ export default defineConfig({
   // SSG优先
   output: "static",
   adapter: cloudflare({
-    // imageService: "passthrough",
     platformProxy: {
       enabled: true,
       configPath: "wrangler.json",

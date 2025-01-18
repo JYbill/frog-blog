@@ -8,17 +8,6 @@ const blogsCollection = defineCollection({
   }),
 });
 
-const snippetsCollection = defineCollection({
-  loader: glob({ pattern: "**/*.mdx", base: "./src/content/snippets" }),
-  schema: ({ image }) =>
-    z.object({
-      title: z.string(),
-      description: z.string(),
-      image: image(),
-    }),
-});
-
 export const collections = {
   blogs: blogsCollection,
-  snippets: snippetsCollection,
 };
