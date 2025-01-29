@@ -1,3 +1,7 @@
 import { atom } from "nanostores";
 
-export const theme = atom("dark");
+export enum Theme {
+  DARK = "dark",
+  LIGHT = "light",
+}
+export const theme = atom(Theme.DARK);

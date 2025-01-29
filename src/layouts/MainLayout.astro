@@ -9,7 +9,6 @@ import Seo from "../components/Seo.astro";
 import FaviconMetaData from "../components/FaviconMetaData.astro";
 import { ClientRouter } from "astro:transitions";
 import { HomeConfig } from "../config";
-import { theme } from "../store/theme";
 
 interface Props {
   title?: string;
@@ -35,7 +34,10 @@ const { title, description, ogImage } = Astro.props as Props;
     <ClientRouter />
     <script>
       import { theme } from "@/store/theme";
-      // TODO theme做成状态，方便其他组件读取
+      import type { Theme } from "@/store/theme";
+
+      const currentTheme = document.documentElement.attributes.getNamedItem("data-theme")!.value as Theme;
+      theme.set(currentTheme);
     </script>
   </head>
   <body class="bg-gray-50 dark:bg-gray-900 text-black dark:text-white">

@@ -7,6 +7,8 @@ import readingTime from "reading-time/lib/reading-time.js";
 import BlogPostViews from "@/components/BlogPostViews";
 import { HomeConfig } from "@/config";
 import { getTitleByPath } from "@/lib/node.runtime";
+import { stat } from "node:fs/promises";
+import { unifyDate } from "@/lib/ecma.util";
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
@@ -17,16 +19,23 @@ export const getStaticPaths = (async () => {
     const title = getTitleByPath(filePath);
     return {
       params: { id: blog.id },
-      props: { blog, title },
+      props: { blog, title, filePath },
     };
   });
 }) satisfies GetStaticPaths;
 
-const { blog, title } = Astro.props as Props;
+const { blog, title, filePath } = Astro.props as Props;
+
+// 更新时间
+const { mtimeMs } = await stat(filePath);
+const modifyDate = new Date(mtimeMs);
+const date = unifyDate(modifyDate);
+
+// 阅读时间
+const readTime = readingTime(blog.body as string).text;
+
+// MD渲染内容
 const { Content } = await render(blog);
-// const date = format(blog.data.date, "yyyy-MM-dd"); // 更新日期
-const date = "2021-10-10 10:00:00";
-const readTime = readingTime(blog.body as string).text; // 阅读时间
 ---
 
 <MainLayout title={title} description={blog.data.description} ogImage={Astro.site + "og.png"}>
@@ -51,24 +60,45 @@ const readTime = readingTime(blog.body as string).text; // 阅读时间
       <h2>Description</h2>
       <p>{blog.data.description}</p>
       <Content />
-      <giscus-widget
-        id="comments"
-        repo="JYbill/disscusion-blog"
-        repoid="R_kgDONsAssQ"
-        category="Announcements"
-        categoryid="DIC_kwDONsAssc4CmISc"
-        mapping="pathname"
-        term="Welcome to giscus!"
-        reactionsenabled="1"
-        emitmetadata="0"
-        inputposition="top"
-        theme="preferred_color_scheme"
-        lang="zh-CN"
-        loading="lazy"
-        strict="1"></giscus-widget>
+      <giscus-wrapper>
+        <giscus-widget
+          id="comments"
+          repo="JYbill/disscusion-blog"
+          repoid="R_kgDONsAssQ"
+          category="Announcements"
+          categoryid="DIC_kwDONsAssc4CmISc"
+          mapping="pathname"
+          term="Welcome to giscus!"
+          reactionsenabled="1"
+          emitmetadata="0"
+          inputposition="top"
+          theme="preferred_color_scheme"
+          lang="zh-CN"
+          loading="lazy"
+          strict="1"></giscus-widget>
+      </giscus-wrapper>
     </div>
   </article>
 </MainLayout>
 <script>
   import "https://cdn.jsdelivr.net/npm/giscus@1.6.0/+esm";
+  import { theme, Theme } from "@/store/theme";
+  import type { GiscusWidget } from "giscus";
+
+  // 自定义元素，为giscus-widget设置初始化属性
+  class GiscusWrapper extends HTMLElement {
+    connectedCallback() {
+      const giscusWidget = document.getElementById("comments") as GiscusWidget;
+      giscusWidget.theme = theme.get();
+    }
+  }
+  customElements.define("giscus-wrapper", GiscusWrapper);
+
+  // 监听theme变化
+  theme.subscribe((themeValue: Theme) => {
+    const giscusWidget = document.getElementById("comments") as GiscusWidget;
+    if (giscusWidget) {
+      giscusWidget.theme = themeValue;
+    }
+  });
 </script>

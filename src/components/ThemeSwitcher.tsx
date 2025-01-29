@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { theme as themeStore, Theme } from "@/store/theme";
 
 const ThemeSwitcher = () => {
   const [theme, setTheme] = useState<boolean | string>(false);
@@ -13,9 +14,10 @@ const ThemeSwitcher = () => {
   }, [theme]);
 
   const changeTheme = () => {
-    const newTheme = theme === "dark" ? "light" : "dark";
+    const newTheme = theme === Theme.DARK ? Theme.LIGHT : Theme.DARK;
     document.dispatchEvent(new CustomEvent("set-theme", { detail: newTheme }));
     setTheme(newTheme);
+    themeStore.set(newTheme);
   };
 
   return (
