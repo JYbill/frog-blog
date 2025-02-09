@@ -1,6 +1,10 @@
 {
   "name": "blog",
   "main": "./dist/_worker.js/index.js",
+  "assets": {
+    "binding": "ASSETS",
+    "directory": "./dist"
+  },
   // nodejs兼容性
   "compatibility_flags": [
     "nodejs_compat"
