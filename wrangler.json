@@ -1,5 +1,5 @@
 {
-  "name": "frog-blog",
+  "name": "blog",
   "main": "./dist/_worker.js/index.js",
   // nodejs兼容性
   "compatibility_flags": [
