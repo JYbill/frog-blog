@@ -14,8 +14,6 @@ description: 定制oh my zsh主题
 
 > 适合和我一样喜欢emoji的
 
-![](https://camo.githubusercontent.com/52934909425b51b3b31042b204998343870bcaeb688cb53d6448b041f70210ed/68747470733a2f2f692e696d6775722e636f6d2f6a624d494275562e706e67)
-
 
 
 + 导入方式：参考`0i0讲解或官方讲解`
