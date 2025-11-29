@@ -12,12 +12,12 @@ description: 安装PowerShell7并在vscode中使用，安装oh-my-post实现主�
 1. 安装`7`：[https://github.com/PowerShell/PowerShell/releases](https://github.com/PowerShell/PowerShell/releases)
 2. 我选择的`PowerShell-7.2.1-win-x64.msi`版本
 
-![](https://gitee.com/JYbill/typroa_pic/raw/master//%E5%8D%9A%E5%AE%A2/oh-my-post1.jpg)
+![](https://image.jybill.top/md/20251129184512412.jpg)
 
 3. 打开：`win + R`输入`pwsh`即可，如果提示未找到命令，把刚才安装的目录配置到环境变量`path`里。例如我的：`D:\powershell 7\7`
 4. 打开VsCode -> `setting`进入设置 -> 输入`@feature:terminal default profile`
 
-![](https://gitee.com/JYbill/typroa_pic/raw/master//%E5%8D%9A%E5%AE%A2/oh-my-post2.png)
+![](https://image.jybill.top/md/20251129184512479.png)
 
 > 默认是没有这个选项的，点击上方的`Edit in setting.json`进入手动配置
 
@@ -47,7 +47,7 @@ description: 安装PowerShell7并在vscode中使用，安装oh-my-post实现主�
 
 + 如果你打算用原始的powershell那么你就可以放弃了，即便弄出来了各种解析不出来的字体看着都很丑
 
-![](https://gitee.com/JYbill/typroa_pic/raw/master//%E5%8D%9A%E5%AE%A2/oh-my-post3.png)
+![](https://image.jybill.top/md/20251129184512490.png)
 
 2. 添加字体：`JetBrainsMonoMedium Nerd Font`
 
@@ -105,7 +105,7 @@ Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
 Get-PoshThemes
 ```
 
-![](https://gitee.com/JYbill/typroa_pic/raw/master//%E5%8D%9A%E5%AE%A2/oh-my-post4.png)
+![](https://image.jybill.top/md/20251129184512502.png)
 
 > **Tip**：VsCode终端安装上面提到的字体
 >
@@ -113,7 +113,7 @@ Get-PoshThemes
 > 2. 输入：@feature:terminal font family
 > 3. 将`JetBrainsMonoMedium Nerd Font`放在第一位
 
-![](https://gitee.com/JYbill/typroa_pic/raw/master//%E5%8D%9A%E5%AE%A2/oh-my-post5.png)
+![](https://image.jybill.top/md/20251129184512512.png)
 
 5. 完结
 
@@ -123,11 +123,11 @@ Get-PoshThemes
 
 7. 测试主题和提示历史记录
 
-![](https://gitee.com/JYbill/typroa_pic/raw/master//%E5%8D%9A%E5%AE%A2/oh-my-post6.png)
+![](https://image.jybill.top/md/20251129184512523.png)
 
 + 这不应用场景秒出吗？
 
-![](https://gitee.com/JYbill/typroa_pic/raw/master//%E5%8D%9A%E5%AE%A2/oh-my-post7.png)
+![](https://image.jybill.top/md/20251129184512534.png)
 
 > 创建nest应用，跳过帮我安包，创建在当前文件夹下，package.json中的name叫做xxxx
 

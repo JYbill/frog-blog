@@ -14,6 +14,8 @@ description: 定制oh my zsh主题
 
 > 适合和我一样喜欢emoji的
 
+![](https://image.jybill.top/md/20251129184800839.png)
+
 
 
 + 导入方式：参考`0i0讲解或官方讲解`
@@ -181,7 +183,7 @@ prompt_agnoster_setup "$@"
 > 推荐使用`Tabby`终端，只有它才能展示emoji，它的功能也有终端 + SFTP文件上传下载 + 用Vs code编辑等
 > FinalShell和MobaXterm无法展示emoji，适合不用emoji的主题
 
-![](https://gitee.com/JYbill/typroa_pic/raw/master//%E5%8D%9A%E5%AE%A2/%E5%AE%9A%E5%88%B6oh%20my%20zsh%E4%B8%BB%E9%A2%982.png)
+![](https://image.jybill.top/md/20251129184810245.png)
 
 > 用`Tabby`的主要原因是它是大前端的产物开发的语言是`TypeScript`，虽然说`MobaXterm is so awesome`，对我这种大前端出生的全栈玩家来说，大致功能差不多情况下颜值第一，现代化美观软件才是第一生产力
 
